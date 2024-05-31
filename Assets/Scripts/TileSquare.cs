@@ -32,4 +32,5 @@ public class TileSquare : MonoBehaviour
 		renderer.color = new Color(255, 255, 255, 0);
 	}
 
+
 }
