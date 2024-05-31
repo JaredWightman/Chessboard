@@ -8,22 +8,23 @@ public class TileSquare : MonoBehaviour
 	// Start is called before the first frame update
 
 	private SpriteRenderer renderer;
+
+	public void lightUp()
+	{
+		renderer.color = new Color(255, 255, 0, 0.3f);
+		print("Lighting Up!");
+	}
 	void Start()
 	{
 		renderer = GetComponent<SpriteRenderer>();
-		//renderer.color = new Color(255, 255, 0, 0.3f);
-		renderer.color = new Color(255, 255, 255, 0);
 	}
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void Update(){}
 
 	void OnMouseOver()
 	{
-		renderer.color = new Color(255, 255, 0, 0.3f);
+		//renderer.color = new Color(255, 255, 0, 0.3f);
 	}
 
 	void OnMouseExit()
