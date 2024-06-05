@@ -6,7 +6,6 @@ public class BasicPiece : MonoBehaviour
 {
 
     bool isSelected = false;
-    //public Transform transform;
     public float xPos;
     public float yPos;
 
@@ -35,8 +34,6 @@ public class BasicPiece : MonoBehaviour
         {
             isSelected = true;
             Debug.Log("Selected!");
-            // Collision2D collision = GetComponent<Collision2D>(); //This doesn't work
-            // collision.gameObject.GetComponent<TileSquare>().lightUp();
         }
     }
 }
