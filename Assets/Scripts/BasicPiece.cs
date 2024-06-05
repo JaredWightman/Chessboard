@@ -8,6 +8,7 @@ public class BasicPiece : MonoBehaviour
     bool isSelected = false;
     public float xPos;
     public float yPos;
+    public GameObject tileUnderneath = null;
 
 
     // Start is called before the first frame update
