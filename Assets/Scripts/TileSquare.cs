@@ -24,7 +24,7 @@ public class TileSquare : MonoBehaviour
 
 	void OnMouseOver()
 	{
-		//renderer.color = new Color(255, 255, 0, 0.3f);
+		renderer.color = new Color(255, 255, 0, 0.3f); // Temporary lightup, remove later
 	}
 
 	void OnMouseExit()
