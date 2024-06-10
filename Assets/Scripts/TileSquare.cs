@@ -6,12 +6,11 @@ using UnityEngine.U2D;
 
 public class TileSquare : MonoBehaviour
 {
-	// Start is called before the first frame update
 
 	private SpriteRenderer renderer;
 	public GameObject containedPiece = null;
 	public bool isLitUp = false;
-	public bool isSelectable = true; // All are selectable for now. Change this later.
+	public bool isSelectable = false;
 	public bool isSelected = false;
 
 	public void lightOn()
@@ -29,15 +28,14 @@ public class TileSquare : MonoBehaviour
 	void Start()
 	{
 		renderer = GetComponent<SpriteRenderer>();
+		isSelectable = true; // DELETE THIS LATER
 	}
-
-    // Update is called once per frame
     void Update(){}
 
 	void OnMouseOver()
 	{
-		//lightOn();
-		if (isSelectable && !isSelected && !isLitUp) // Check doesn't work yet
+
+		if (isSelectable && !isSelected && !isLitUp)
 		{
 			lightOn();
 		}
@@ -45,7 +43,7 @@ public class TileSquare : MonoBehaviour
 
 	void OnMouseExit()
 	{
-		if (isSelectable && !isSelected && isLitUp) // CHeck doesn't work yet
+		if (isSelectable && !isSelected && isLitUp)
 		{
 			lightOff();
 		}
