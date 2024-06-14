@@ -8,7 +8,7 @@ public class TileSquare : MonoBehaviour
 {
 
 	private SpriteRenderer renderer;
-	public GameObject containedPiece = null;
+	public BasicPiece containedPiece = null;
 	public bool isLitUp = false;
 	public bool isSelectable = false;
 	public bool isSelected = false;

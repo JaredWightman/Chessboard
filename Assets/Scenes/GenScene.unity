@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tile: {fileID: 1861114961909576422, guid: 43cd071afd6b31243a8e653192d70322, type: 3}
   selectedPiece: {fileID: 0}
+  selectedDestination: {fileID: 0}
   isWhiteTurn: 1
   isBlackTurn: 0
   BishopBlack: {fileID: 3851612343436861470, guid: b63c2fac938c76a479d8a13f72d9a4be, type: 3}
