@@ -20,26 +20,30 @@ public class MasterController : MonoBehaviour
     {
         // Instantiating tiles in an 8x8 grid. DON'T HAVE TO INSTANTIATE IF WE JUST HARD-CODE THE TILES/PIECES
 
+        Dictionary<Vector3, GameObject> tileList = new Dictionary<Vector3, GameObject>();
         for (int i = -7; i <= 7; i = i + 2)
         {
 			for (int j = -7; j <= 7; j = j + 2)
 			{
 
-                var spawnedTile = Instantiate(Tile, new Vector3(i, j, -1), Quaternion.identity);
-                
-                
 
-                tileList[new Vector3(i, j)] = spawnedTile; // Can't use spawnedTile, not set to an instance of an object?
+
+                var spawnedTile = Instantiate(Tile, new Vector3(i, j, -1), Quaternion.identity);
+
+                tileList.Add(new Vector3(i, j), spawnedTile);
 			}
 		}
         
 		var pieceboi = Instantiate(BishopBlack, new Vector3(-3, 7, 0), Quaternion.identity);
 		Debug.Log(pieceboi.GetComponent<BasicPiece>().tileUnderneath); // Calling a variable
-		var temporaryTile = Instantiate(Tile, new Vector3(-5, 7, -2), Quaternion.identity);
+
+
+        var temporaryTile = Instantiate(Tile, new Vector3(-5, 7, -2), Quaternion.identity);//.GetComponent<TileSquare>();
+
         temporaryTile.GetComponent<TileSquare>().lightOn();
 
-		Vector3 position = new Vector3(-3, 7, 0);
-        GameObject tileboi = getTile(position);
+		//Vector3 position = new Vector3(-3, 7, 0);
+        //GameObject tileboi = getTile(position);
         Debug.Log("Here is what I got:");
         //Debug.Log(tileboi);
         //pieceboi.GetComponent<TileSquare>();
