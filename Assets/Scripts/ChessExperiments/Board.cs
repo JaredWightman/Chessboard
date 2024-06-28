@@ -1,114 +1,62 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine;*/
 
-public class Board : MonoBehaviour
+public class Board
 {
-    public BoardTheme boardTheme;
-    public bool whiteIsBottom = true;
+    public Square[, ] squares;
 
-    MeshRenderer[, ] squareRenderers;
-    SpriteRenderer[, ] squarePieceRenderers;
-
-    const float pieceDepth = -0.1f;
-    const float pieceDragDepth = -0.2f;
-
-    public Color lightColor;
-    public Color darkColor;
-
-    public Sprite whiteKing, whiteQueen, whiteRook, whiteBishop, whiteKnight, whitePawn;
-    public Sprite blackKing, blackQueen, blackRook, blackBishop, blackKnight, blackPawn;
-
-    public const int None = 0;
-    public const int King = 1;
-    public const int Pawn = 2;
-    public const int Knight = 3;
-    public const int Bishop = 5;
-    public const int Rook = 6;
-    public const int Queen = 7;
-
-    public const int White = 8;
-    public const int Black = 16;
-    
-    void Awake()
+    public Board()
     {
-        CreateBoardUI();
+        SetBoard();
     }
 
-    void CreateBoardUI()
+    public void SetBoard()
     {
-        Shader squareShader = Shader.Find ("Unlit/Color");
-        squareRenderers = new MeshRenderer[8, 8];
-        squarePieceRenderers = new SpriteRenderer[8, 8];
+        squares = new Square[8, 8] {
+            {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
+            {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
+            {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
+            {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
+            {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
+            {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
+            {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
+            {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()}
+        };
 
-        for ( int rank = 0; rank < 8; rank++) {
+        squares[0, 0].setPieceAndColor(Piece.Rook, Piece.White);
+        squares[1, 0].setPieceAndColor(Piece.Knight, Piece.White);
+        squares[2, 0].setPieceAndColor(Piece.Bishop, Piece.White);
+        squares[3, 0].setPieceAndColor(Piece.Queen, Piece.White);
+        squares[4, 0].setPieceAndColor(Piece.King, Piece.White);
+        squares[5, 0].setPieceAndColor(Piece.Bishop, Piece.White);
+        squares[6, 0].setPieceAndColor(Piece.Knight, Piece.White);
+        squares[7, 0].setPieceAndColor(Piece.Rook, Piece.White);
+
+        for (int i = 0; i < 8; i++) {
+            squares[i, 1].setPieceAndColor(Piece.Pawn, Piece.White);
+            squares[i, 6].setPieceAndColor(Piece.Pawn, Piece.Black);
+        }
+        
+        squares[0, 7].setPieceAndColor(Piece.Rook, Piece.Black);
+        squares[1, 7].setPieceAndColor(Piece.Knight, Piece.Black);
+        squares[2, 7].setPieceAndColor(Piece.Bishop, Piece.Black);
+        squares[3, 7].setPieceAndColor(Piece.Queen, Piece.Black);
+        squares[4, 7].setPieceAndColor(Piece.King, Piece.Black);
+        squares[5, 7].setPieceAndColor(Piece.Bishop, Piece.Black);
+        squares[6, 7].setPieceAndColor(Piece.Knight, Piece.Black);
+        squares[7, 7].setPieceAndColor(Piece.Rook, Piece.Black);
+
+        for (int rank = 0; rank < 8; rank++) {
             for (int file = 0; file < 8; file++) {
-                Transform square = GameObject.CreatePrimitive (PrimitiveType.Quad).transform;
-                square.parent = transform;
-                square.position = PositionFromCoord (file, rank, 0);
-                Material squareMatierial = new Material (squareShader);
-
-                squareRenderers[file, rank] = square.gameObject.GetComponent<MeshRenderer> ();
-                squareRenderers[file, rank].material = squareMatierial;
-
-                SpriteRenderer pieceRenderer = new GameObject ("Piece").AddComponent<SpriteRenderer> ();
-                pieceRenderer.transform.parent = square;
-                pieceRenderer.transform.position = PositionFromCoord (file, rank, pieceDepth);
-                pieceRenderer.transform.localScale = Vector3.one * 60 / (200 / 6f);
-                squarePieceRenderers[file, rank] = pieceRenderer;
-                squarePieceRenderers[file, rank].sprite = GetPieceSprite (Rook, White);
-
-                squareRenderers[file, rank].material.color = ((file + rank) % 2 != 0) ? lightColor : darkColor;
+                squares[file, rank].setFile(file);
+                squares[file, rank].setRank(rank);
             }
         }
     }
 
-    public Vector3 PositionFromCoord (int file, int rank, float depth = 0)
+    public Square[, ] GetSquares()
     {
-        return new Vector3 (-3.5f + file, -3.5f + rank, depth);
-    }
-
-    public Sprite GetPieceSprite (int piece, int color)
-    {
-        switch (piece) {
-            case Pawn:
-                if (color == White) {
-                    return whitePawn;
-                } else {
-                    return blackPawn;
-                }
-            case Rook:
-                if (color == White) {
-                    return whiteRook;
-                } else {
-                    return blackRook;
-                }
-            case Knight:
-                if (color == White) {
-                    return whiteKnight;
-                } else {
-                    return blackKnight;
-                }
-            case Bishop:
-                if (color == White) {
-                    return whiteBishop;
-                } else {
-                    return blackBishop;
-                }
-            case Queen:
-                if (color == White) {
-                    return whiteQueen;
-                } else {
-                    return blackQueen;
-                }
-            case King:
-                if (color == White) {
-                    return whiteKing;
-                } else {
-                    return blackKing;
-                }
-            default:
-                return null;
-        }
+        return squares;
     }
 }

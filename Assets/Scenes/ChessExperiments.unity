@@ -244,22 +244,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c813e9fcc7ebb546a3c25a60d7bc3b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardTheme: {fileID: 0}
+  boardTheme: {fileID: 11400000, guid: c6c056c892ada2c4890d441aa76b34c7, type: 2}
+  pieceTheme: {fileID: 11400000, guid: 5d831a0960aa349e7ab957bd112ab7cd, type: 2}
+  board: {fileID: 0}
   whiteIsBottom: 1
-  lightColor: {r: 0.8666667, g: 0.54901963, b: 0.3647059, a: 0}
-  darkColor: {r: 0.43529412, g: 0.21960784, b: 0.11372549, a: 0}
-  whiteKing: {fileID: 21300000, guid: 6ed0d98584728b344b63e1aa4c6a8dfb, type: 3}
-  whiteQueen: {fileID: 21300000, guid: 82e14347de4fcd34787ff84f911a60ba, type: 3}
-  whiteRook: {fileID: 21300000, guid: ebbd853491e87c544940070975e8c4ee, type: 3}
-  whiteBishop: {fileID: 21300000, guid: 688a74c1cfbcd3a4f9565d9501a4f2ff, type: 3}
-  whiteKnight: {fileID: 21300000, guid: 47f5acdd94ec0694691dce7b1eb4d6a9, type: 3}
-  whitePawn: {fileID: 21300000, guid: e18c4f587f3c2934f971bfe55e500967, type: 3}
-  blackKing: {fileID: 21300000, guid: 9c4a1c42e0d7d7e438f1ebcf1eab0471, type: 3}
-  blackQueen: {fileID: 21300000, guid: 60722ac8250a0cb4ebaa850013e42495, type: 3}
-  blackRook: {fileID: 21300000, guid: f2ef34dc440e5d94c92e802641b8d6c6, type: 3}
-  blackBishop: {fileID: 21300000, guid: e85ba6bef4b838f4aa06ed8c914dd85d, type: 3}
-  blackKnight: {fileID: 21300000, guid: ce9847e346e68894c83ea18e2b894586, type: 3}
-  blackPawn: {fileID: 21300000, guid: 8dfd8711f1a181448877bceb08bd65f6, type: 3}
 --- !u!4 &1900720910
 Transform:
   m_ObjectHideFlags: 0
