@@ -4,37 +4,18 @@ using UnityEngine;
 
 public class BasicPiece : MonoBehaviour
 {
-
-    bool isSelected = false;
-    public float xPos;
-    public float yPos;
+    // THIS IS A DATA CLASS SO FAR
+    bool existence = true;
     public GameObject tileUnderneath = null;
 
-
-    // Start is called before the first frame update
     void Start()
     {
-        xPos = transform.position.x;
-        yPos = transform.position.y;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    void OnMouseDown() // Click event
-    {
-        if (isSelected)
-        {
-            isSelected = false;
-            Debug.Log("Deselected!");
-        }
-        else
-        {
-            isSelected = true;
-            Debug.Log("Selected!");
-        }
+        
     }
 }

@@ -15,19 +15,32 @@ public class SelectionMaster : MonoBehaviour
 
     void Update()
     {
-		// Put this in update
+		// Check when click
 		if (Input.GetMouseButtonDown(0))
 		{
 
 			RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
+			// Check clicked object
 			if (hit.collider != null)
 			{
-				// Clicking something
-				Debug.Log("You just clicked something: " + hit.collider.name);
+				Debug.Log("Clicked an object.");
 
-				// Check if tile has a piece
-				if (hit.collider.gameObject.GetComponent<TileSquare>().containedPiece != null)
+
+				if (selectOne == null)
+				{
+					// Check if tile has a piece
+					if (hit.collider.gameObject.GetComponent<TileSquare>().containedPiece != null)
+					{
+						// Selecting the first piece
+						selectOne = hit.collider.gameObject;
+						Debug.Log(selectOne.GetComponent<TileSquare>().containedPiece);
+						selectOne.GetComponent<TileSquare>().lightOn();
+
+					}
+				}
+
+				else if (selectTwo == null)
 				{
 					// Clicking same piece deselects it
 					if ((selectOne != null) && (hit.collider.gameObject == selectOne))
@@ -37,29 +50,45 @@ public class SelectionMaster : MonoBehaviour
 						selectTwo = null;
 					}
 
-					// Clicking the first piece
-					else if (selectOne == null)
-					{
-						selectOne = hit.collider.gameObject;
-						selectOne.GetComponent<TileSquare>().lightOn();
-					}
-
-					// Clicking second piece
+					// Clicking different piece
 					else
 					{
+
 						selectTwo = hit.collider.gameObject;
-						// Check if valid, do logic, move to other player's turn, then clear out selections
 						selectOne.GetComponent<TileSquare>().lightOff();
 
+						// If lands on a piece, destroy it
+						if (selectTwo.GetComponent<TileSquare>().containedPiece != null)
+						{
+							Debug.Log("Capture!");
+							Destroy(selectTwo.GetComponent<TileSquare>().containedPiece.gameObject);
+							Destroy(selectTwo.GetComponent<TileSquare>().containedPiece);
+							
+						}
+
+						selectOne.GetComponent<TileSquare>().containedPiece.transform.position = selectTwo.transform.position;
+						selectTwo.GetComponent<TileSquare>().containedPiece = selectOne.GetComponent<TileSquare>().containedPiece;
+						selectOne.GetComponent<TileSquare>().containedPiece = null;
+						selectOne = null;
+						selectTwo = null;
 					}
+
 				}
-			}
 
 				
+
+
+
+			}
+
 			else
 			{
 				// Clicking nothing deselects everything
-				Debug.Log("Click on something, dingus");
+				if (selectOne != null)
+				{
+					selectOne.GetComponent<TileSquare>().lightOff();
+				}
+					
 				selectOne = null;
 				selectTwo = null;
 			}

@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3916513217347197448}
   - component: {fileID: 4978224627340035840}
-  - component: {fileID: 4220741304583313871}
+  - component: {fileID: -7118567603160311383}
   m_Layer: 0
   m_Name: BishopWhite
-  m_TagString: Untagged
+  m_TagString: White
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4220741304583313871
+--- !u!114 &-7118567603160311383
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,6 +97,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3807adf9ac9c6054480496578e210aeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xPos: 0
-  yPos: 0
   tileUnderneath: {fileID: 0}
