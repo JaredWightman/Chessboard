@@ -576,11 +576,9 @@ PrefabInstance:
     - target: {fileID: 7292540563092194873, guid: 43cd071afd6b31243a8e653192d70322, type: 3}
       propertyPath: containedPiece
       value: 
-<<<<<<< HEAD
-      objectReference: {fileID: 910905909}
-=======
+
       objectReference: {fileID: 1386397632}
->>>>>>> parent of ddf983a (Make clicking stuff possible)
+
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2707,8 +2705,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43cd071afd6b31243a8e653192d70322, type: 3}
-<<<<<<< HEAD
-=======
+
 --- !u!1001 &1386397631
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2771,7 +2768,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4163394299865387246, guid: b6779e3b2785f564992a96594aeadf56, type: 3}
   m_PrefabInstance: {fileID: 1386397631}
   m_PrefabAsset: {fileID: 0}
->>>>>>> parent of ddf983a (Make clicking stuff possible)
+
 --- !u!1001 &1398061438
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3554,11 +3551,9 @@ PrefabInstance:
     - target: {fileID: 7292540563092194873, guid: 43cd071afd6b31243a8e653192d70322, type: 3}
       propertyPath: containedPiece
       value: 
-<<<<<<< HEAD
-      objectReference: {fileID: 1993733880}
-=======
+
       objectReference: {fileID: 113037081821440996}
->>>>>>> parent of ddf983a (Make clicking stuff possible)
+
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4623,8 +4618,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43cd071afd6b31243a8e653192d70322, type: 3}
-<<<<<<< HEAD
-=======
+
 --- !u!1001 &113037081821440995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4687,7 +4681,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3851612343436861470, guid: b63c2fac938c76a479d8a13f72d9a4be, type: 3}
   m_PrefabInstance: {fileID: 113037081821440995}
   m_PrefabAsset: {fileID: 0}
->>>>>>> parent of ddf983a (Make clicking stuff possible)
+
 --- !u!1001 &2562637509127996013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4823,10 +4817,7 @@ SceneRoots:
   - {fileID: 1973195116}
   - {fileID: 1950274092}
   - {fileID: 268013604}
-<<<<<<< HEAD
   - {fileID: 1641772939}
   - {fileID: 906464544}
   - {fileID: 806615123}
-=======
   - {fileID: 1386397631}
->>>>>>> parent of ddf983a (Make clicking stuff possible)
