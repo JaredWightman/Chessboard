@@ -12,8 +12,6 @@ public class TileSquare : MonoBehaviour
 	public bool isLitUp = false;
 	public bool isSelectable = false;
 	public bool isSelected = false;
-	public int xCoord;
-	public int yCoord;
 
 	public void lightOn()
 	{
@@ -34,35 +32,35 @@ public class TileSquare : MonoBehaviour
 	}
     void Update(){}
 
-	//void OnMouseOver()
-	//{
+	void OnMouseOver()
+	{
 
-	//	if (isSelectable && !isSelected && !isLitUp)
-	//	{
-	//		lightOn();
-	//	}
-	//}
+		if (isSelectable && !isSelected && !isLitUp)
+		{
+			lightOn();
+		}
+	}
 
-	//void OnMouseExit()
-	//{
-	//	if (isSelectable && !isSelected && isLitUp)
-	//	{
-	//		lightOff();
-	//	}
-	//}
+	void OnMouseExit()
+	{
+		if (isSelectable && !isSelected && isLitUp)
+		{
+			lightOff();
+		}
+	}
 
-	//private void OnMouseUp()
-	//{
-	//	if (isSelectable && !isSelected)
-	//	{
-	//		isSelected = true;
-	//	}
-	//	else if (isSelectable && isSelected)
-	//	{
-	//		isSelected = false;
-	//	}
+	private void OnMouseUp()
+	{
+		if (isSelectable && !isSelected)
+		{
+			isSelected = true;
+		}
+		else if (isSelectable && isSelected)
+		{
+			isSelected = false;
+		}
 		
 
-	//}
+	}
 
 }
