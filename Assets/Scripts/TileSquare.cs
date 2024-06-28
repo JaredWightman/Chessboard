@@ -32,35 +32,6 @@ public class TileSquare : MonoBehaviour
 	}
     void Update(){}
 
-	void OnMouseOver()
-	{
 
-		if (isSelectable && !isSelected && !isLitUp)
-		{
-			lightOn();
-		}
-	}
-
-	void OnMouseExit()
-	{
-		if (isSelectable && !isSelected && isLitUp)
-		{
-			lightOff();
-		}
-	}
-
-	private void OnMouseUp()
-	{
-		if (isSelectable && !isSelected)
-		{
-			isSelected = true;
-		}
-		else if (isSelectable && isSelected)
-		{
-			isSelected = false;
-		}
-		
-
-	}
 
 }
