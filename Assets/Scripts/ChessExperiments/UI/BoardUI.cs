@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class BoardUI : MonoBehaviour
@@ -20,12 +21,40 @@ public class BoardUI : MonoBehaviour
         UpdatePosition(board);
     }
 
+    public void DragPiece (Coord pieceCoord, Vector2 mousePos) {
+        squarePieceRenderers[pieceCoord.fileIndex, pieceCoord.rankIndex].transform.position = new Vector3 (mousePos.x, mousePos.y, pieceDragDepth);
+    }
+
+    public void ResetPiecePosition (Coord pieceCoord) {
+        Vector3 pos = PositionFromCoord (pieceCoord.fileIndex, pieceCoord.rankIndex, pieceDepth);
+        squarePieceRenderers[pieceCoord.fileIndex, pieceCoord.rankIndex].transform.position = pos;
+    }
+
+    public void SelectSquare (Coord coord) {
+			SetSquareColor(coord, boardTheme.lightSquares.selected, boardTheme.darkSquares.selected);
+		}
+
+		public void DeselectSquare (Coord coord) {
+			ResetSquareColors ();
+		}
+
+    public bool TryGetSquareUnderMouse (Vector2 mouseWorld, out Coord selectedCoord) {
+			int file = (int) (mouseWorld.x + 4);
+			int rank = (int) (mouseWorld.y + 4);
+			if (!whiteIsBottom) {
+				file = 7 - file;
+				rank = 7 - rank;
+			}
+			selectedCoord = new Coord (file, rank);
+			return file >= 0 && file < 8 && rank >= 0 && rank < 8;
+		}
+
     public void UpdatePosition(Board board) {
         Square[,] squares = board.GetSquares();
         for (int rank = 0; rank < 8; rank++) {
             for (int file = 0; file < 8; file++) {
-                int pieceType = squares[file, rank].getPiece();
-                int pieceColor = squares[file, rank].getColor();
+                int pieceType = squares[file, rank].GetPiece();
+                int pieceColor = squares[file, rank].GetColor();
 
                 squarePieceRenderers[file, rank].sprite = pieceTheme.GetPieceSprite(pieceType, pieceColor);
                 squarePieceRenderers[file, rank].transform.position = PositionFromCoord(file, rank);
@@ -69,8 +98,10 @@ public class BoardUI : MonoBehaviour
         return new Vector3 (-3.5f + file, -3.5f + rank, depth);
     }
 
-    void SetSquareColor(int file, int rank, Color lightColor, Color darkColor)
+    void SetSquareColor(Coord coord, Color lightColor, Color darkColor)
     {
+        int file = coord.fileIndex;
+        int rank = coord.rankIndex;
         squareRenderers[file, rank].material.color = (IsLightSquare(file, rank)) ? lightColor : darkColor;
     }
 
@@ -78,7 +109,7 @@ public class BoardUI : MonoBehaviour
     {
         for (int rank = 0; rank < 8; rank++) {
             for (int file = 0; file < 8; file++) {
-                SetSquareColor(file, rank, boardTheme.lightSquares.normal, boardTheme.darkSquares.normal);
+                SetSquareColor(new Coord(file, rank), boardTheme.lightSquares.normal, boardTheme.darkSquares.normal);
             }
         }
     }

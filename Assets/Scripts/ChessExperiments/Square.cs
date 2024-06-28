@@ -39,53 +39,53 @@ public class Square
     }
 
 
-    public int getFile()
+    public int GetFile()
     {
         return file;
     }
 
-    public void setFile(int newFile)
+    public void SetFile(int newFile)
     {
         file = newFile;
     }
 
-    public int getRank()
+    public int GetRank()
     {
         return rank;
     }
 
-    public void setRank(int newRank)
+    public void SetRank(int newRank)
     {
         rank = newRank;
     }
 
-    public int getPiece()
+    public int GetPiece()
     {
         return pieceType;
     }
 
-    public void setPiece(int type)
+    public void SetPiece(int type)
     {
         pieceType = type;
     }
 
-    public int getColor()
+    public int GetColor()
     {
         return pieceColor;
     }
 
-    public void setColor(int color)
+    public void SetColor(int color)
     {
         pieceColor = color;
     }
 
-    public void setPieceAndColor(int type, int color)
+    public void SetPieceAndColor(int type, int color)
     {
         pieceType = type;
         pieceColor = color;
     }
 
-    public void setEmpty()
+    public void SetEmpty()
     {
         pieceType = Piece.None;
     }
