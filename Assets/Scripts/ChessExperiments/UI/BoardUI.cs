@@ -31,23 +31,23 @@ public class BoardUI : MonoBehaviour
     }
 
     public void SelectSquare (Coord coord) {
-			SetSquareColor(coord, boardTheme.lightSquares.selected, boardTheme.darkSquares.selected);
-		}
+        SetSquareColor(coord, boardTheme.lightSquares.selected, boardTheme.darkSquares.selected);
+    }
 
-		public void DeselectSquare (Coord coord) {
-			ResetSquareColors ();
-		}
+    public void DeselectSquare (Coord coord) {
+        ResetSquareColors ();
+    }
 
     public bool TryGetSquareUnderMouse (Vector2 mouseWorld, out Coord selectedCoord) {
-			int file = (int) (mouseWorld.x + 4);
-			int rank = (int) (mouseWorld.y + 4);
-			if (!whiteIsBottom) {
-				file = 7 - file;
-				rank = 7 - rank;
-			}
-			selectedCoord = new Coord (file, rank);
-			return file >= 0 && file < 8 && rank >= 0 && rank < 8;
-		}
+        int file = (int) (mouseWorld.x + 4);
+        int rank = (int) (mouseWorld.y + 4);
+        if (!whiteIsBottom) {
+            file = 7 - file;
+            rank = 7 - rank;
+        }
+        selectedCoord = new Coord (file, rank);
+        return file >= 0 && file < 8 && rank >= 0 && rank < 8;
+    }
 
     public void UpdatePosition(Board board) {
         Square[,] squares = board.GetSquares();
