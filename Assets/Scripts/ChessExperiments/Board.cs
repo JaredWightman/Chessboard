@@ -62,7 +62,91 @@ public class Board
         return squares;
     }
 
-    public void makeMove(Coord startCoord, Coord endCoord)
+    public bool PawnToMove(Coord startCoord, Coord endCoord)
+    {
+        int startFile = startCoord.fileIndex;
+        int startRank = startCoord.rankIndex;
+        int endFile = endCoord.fileIndex;
+        int endRank = endCoord.rankIndex;
+
+        return true;
+    }
+
+    public bool KnightToMove(Coord startCoord, Coord endCoord)
+    {
+        int startFile = startCoord.fileIndex;
+        int startRank = startCoord.rankIndex;
+        int endFile = endCoord.fileIndex;
+        int endRank = endCoord.rankIndex;
+
+        return true;
+    }
+
+    public bool BishopToMove(Coord startCoord, Coord endCoord)
+    {
+        int startFile = startCoord.fileIndex;
+        int startRank = startCoord.rankIndex;
+        int endFile = endCoord.fileIndex;
+        int endRank = endCoord.rankIndex;
+
+        return true;
+    }
+
+    public bool RookToMove(Coord startCoord, Coord endCoord)
+    {
+        int startFile = startCoord.fileIndex;
+        int startRank = startCoord.rankIndex;
+        int endFile = endCoord.fileIndex;
+        int endRank = endCoord.rankIndex;
+
+        return true;
+    }
+
+    public bool QueenToMove(Coord startCoord, Coord endCoord)
+    {
+        int startFile = startCoord.fileIndex;
+        int startRank = startCoord.rankIndex;
+        int endFile = endCoord.fileIndex;
+        int endRank = endCoord.rankIndex;
+
+        return true;
+    }
+
+    public bool KingToMove(Coord startCoord, Coord endCoord)
+    {
+        int startFile = startCoord.fileIndex;
+        int startRank = startCoord.rankIndex;
+        int endFile = endCoord.fileIndex;
+        int endRank = endCoord.rankIndex;
+
+        return true;
+    }
+
+    public bool IsMoveLegal(Coord startCoord, Coord endCoord)
+    {
+        int startFile = startCoord.fileIndex;
+        int startRank = startCoord.rankIndex;
+        int movingPiece = squares[startFile, startRank].GetPiece();
+        
+        switch (movingPiece) {
+            case Piece.Pawn:
+                return PawnToMove(startCoord, endCoord);
+            case Piece.Knight:
+                return KnightToMove(startCoord, endCoord);
+            case Piece.Bishop:
+                return BishopToMove(startCoord, endCoord);
+            case Piece.Rook:
+                return RookToMove(startCoord, endCoord);
+            case Piece.Queen:
+                return QueenToMove(startCoord, endCoord);
+            case Piece.King:
+                return KingToMove(startCoord, endCoord);
+            default:
+                return false;
+        }
+    }
+
+    public void MakeMove(Coord startCoord, Coord endCoord)
     {
         int startFile = startCoord.fileIndex;
         int startRank = startCoord.rankIndex;

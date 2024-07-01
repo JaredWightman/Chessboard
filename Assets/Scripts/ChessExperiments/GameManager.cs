@@ -96,11 +96,11 @@ public class GameManager : MonoBehaviour
     }
 
     void TryMakeMove (Coord startSquare, Coord targetSquare) {
-        bool moveIsLegal = true;
+        bool moveIsLegal = board.IsMoveLegal(startSquare, targetSquare);
 
         if (moveIsLegal) {
             currentState = InputState.None;
-            board.makeMove(startSquare, targetSquare);
+            board.MakeMove(startSquare, targetSquare);
             boardUI.UpdatePosition(board);
             boardUI.DeselectSquare(selectedPieceSquare);
         } else {
