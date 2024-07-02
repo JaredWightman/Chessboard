@@ -88,5 +88,6 @@ public class Square
     public void SetEmpty()
     {
         pieceType = Piece.None;
+        pieceColor = Piece.None;
     }
 }

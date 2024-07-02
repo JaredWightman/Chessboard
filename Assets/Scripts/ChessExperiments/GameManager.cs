@@ -123,6 +123,7 @@ public class GameManager : MonoBehaviour
                     //boardUI.HighlightLegalMoves (board, selectedPieceSquare);
                     boardUI.SelectSquare (selectedPieceSquare);
                     currentState = InputState.DraggingPiece;
+                    boardUI.HighlightLegalMoves(board.GenerateMoves(selectedPieceSquare));
                 }
             }
         }

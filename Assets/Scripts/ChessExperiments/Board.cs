@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;*/
 
+using System.Collections.Generic;
+using System.Linq;
+
 public class Board
 {
     public Square[, ] squares;
@@ -62,6 +65,33 @@ public class Board
         return squares;
     }
 
+    public Coord[] GenerateMoves(Coord pieceCoord)
+    {
+        Coord[] emptyMoveList = new Coord[2];
+        
+        switch (squares[pieceCoord.fileIndex, pieceCoord.rankIndex].GetPiece()) {
+            case Piece.Pawn:
+                return emptyMoveList;
+            case Piece.Knight:
+                return GenerateKnightMoves(pieceCoord);
+            case Piece.Bishop:
+                return emptyMoveList;
+            case Piece.Rook:
+                return emptyMoveList;
+            case Piece.Queen:
+                return emptyMoveList;
+            case Piece.King:
+                return emptyMoveList;
+            default:
+                return emptyMoveList;
+        }
+    }
+
+    private Coord IsCoordValid(int file, int rank, int pieceColor)
+    {
+        return (file < 8 && file > -1 && rank < 8 && rank > -1 && squares[file, rank].GetColor() != pieceColor) ? new Coord(file, rank) : new Coord(-1,-1);
+    }
+
     public bool PawnToMove(Coord startCoord, Coord endCoord)
     {
         int startFile = startCoord.fileIndex;
@@ -79,7 +109,55 @@ public class Board
         int endFile = endCoord.fileIndex;
         int endRank = endCoord.rankIndex;
 
-        return true;
+        bool moveIsLegal = false;
+        Coord[] legalMoves = GenerateKnightMoves(startCoord);
+        for (int i = 0; i < legalMoves.Length; i++) {
+            if (legalMoves[i].fileIndex == endFile && legalMoves[i].rankIndex == endRank) {
+                moveIsLegal = true;
+            }
+        }
+
+        return moveIsLegal;
+    }
+
+
+    public Coord[] GenerateKnightMoves(Coord pieceCoord)
+    {
+        Coord[] moves = new Coord[8];
+        int pieceFile = pieceCoord.fileIndex;
+        int pieceRank = pieceCoord.rankIndex;
+        int pieceColor = squares[pieceFile, pieceRank].GetColor();
+        Coord empty = new Coord(-1,-1);
+        int newFile;
+        int newRank;
+        
+        // Jumping up
+        newRank = pieceRank + 2;
+        newFile = pieceFile + 1;
+        moves[0] = IsCoordValid(newFile, newRank, pieceColor);
+        newFile = pieceFile - 1;
+        moves[1] = IsCoordValid(newFile, newRank, pieceColor);
+        
+        // Jumping down
+        newRank = pieceRank - 2;
+        moves[2] = IsCoordValid(newFile, newRank, pieceColor);
+        newFile = pieceFile + 1;
+        moves[3] = IsCoordValid(newFile, newRank, pieceColor);
+        
+        // Jumping right
+        newFile = pieceFile + 2;
+        newRank = pieceRank + 1;
+        moves[4] = IsCoordValid(newFile, newRank, pieceColor);
+        newRank = pieceRank - 1;
+        moves[5] = IsCoordValid(newFile, newRank, pieceColor);
+        
+        // Jumping left
+        newFile = pieceFile - 2;
+        moves[6] = IsCoordValid(newFile, newRank, pieceColor);
+        newRank = pieceRank + 1;
+        moves[7] = IsCoordValid(newFile, newRank, pieceColor);
+
+        return moves;
     }
 
     public bool BishopToMove(Coord startCoord, Coord endCoord)

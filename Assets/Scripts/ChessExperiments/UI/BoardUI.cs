@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BoardUI : MonoBehaviour
 {
@@ -16,11 +18,12 @@ public class BoardUI : MonoBehaviour
     const float pieceDragDepth = -0.2f;
     private Coord lastStartSquare;
     private Coord lastTargetSquare;
+    public bool highlight = true;
     
     void Awake()
     {
         CreateBoardUI();
-        UpdatePosition(board);
+        //UpdatePosition(board);
     }
 
     public void DragPiece (Coord pieceCoord, Vector2 mousePos) {
@@ -44,6 +47,15 @@ public class BoardUI : MonoBehaviour
     {
         SetSquareColor(startCoord, boardTheme.lightSquares.moveFromHighlight, boardTheme.darkSquares.moveFromHighlight);
         SetSquareColor(targetCoord, boardTheme.lightSquares.moveToHighlight, boardTheme.darkSquares.moveToHighlight);
+    }
+
+    public void HighlightLegalMoves(Coord[] moves)
+    {
+        for (int i = 0; i < moves.Length; i++) {
+            if (moves[i].fileIndex < 8 && moves[i].fileIndex > -1 && moves[i].rankIndex < 8 && moves[i].rankIndex > -1) {
+                SetSquareColor(moves[i], boardTheme.lightSquares.legal, boardTheme.darkSquares.legal);
+            }
+        } 
     }
 
     public void OnMoveMade(Board board, Coord startSquare, Coord targetSquare)
@@ -121,7 +133,7 @@ public class BoardUI : MonoBehaviour
         squareRenderers[file, rank].material.color = (IsLightSquare(file, rank)) ? lightColor : darkColor;
     }
 
-    public void ResetSquareColors(bool highlight = true)
+    public void ResetSquareColors()
     {
         for (int rank = 0; rank < 8; rank++) {
             for (int file = 0; file < 8; file++) {
@@ -129,7 +141,9 @@ public class BoardUI : MonoBehaviour
             }
         }
         if (highlight) {
-            HighlightLastMove(lastStartSquare, lastTargetSquare);
+            if (lastStartSquare != null) {
+                HighlightLastMove(lastStartSquare, lastTargetSquare);
+            }
         }
     }
 }
