@@ -101,8 +101,9 @@ public class GameManager : MonoBehaviour
         if (moveIsLegal) {
             currentState = InputState.None;
             board.MakeMove(startSquare, targetSquare);
-            boardUI.UpdatePosition(board);
-            boardUI.DeselectSquare(selectedPieceSquare);
+            //boardUI.UpdatePosition(board);
+            //boardUI.DeselectSquare(selectedPieceSquare);
+            boardUI.OnMoveMade(board, startSquare, targetSquare);
         } else {
             CancelPieceSelection ();
         }

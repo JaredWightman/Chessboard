@@ -14,6 +14,8 @@ public class BoardUI : MonoBehaviour
 
     const float pieceDepth = -0.1f;
     const float pieceDragDepth = -0.2f;
+    private Coord lastStartSquare;
+    private Coord lastTargetSquare;
     
     void Awake()
     {
@@ -36,6 +38,20 @@ public class BoardUI : MonoBehaviour
 
     public void DeselectSquare (Coord coord) {
         ResetSquareColors ();
+    }
+
+    void HighlightLastMove(Coord startCoord, Coord targetCoord)
+    {
+        SetSquareColor(startCoord, boardTheme.lightSquares.moveFromHighlight, boardTheme.darkSquares.moveFromHighlight);
+        SetSquareColor(targetCoord, boardTheme.lightSquares.moveToHighlight, boardTheme.darkSquares.moveToHighlight);
+    }
+
+    public void OnMoveMade(Board board, Coord startSquare, Coord targetSquare)
+    {
+        lastStartSquare = startSquare;
+        lastTargetSquare = targetSquare;
+        UpdatePosition(board);
+        ResetSquareColors();
     }
 
     public bool TryGetSquareUnderMouse (Vector2 mouseWorld, out Coord selectedCoord) {
@@ -105,12 +121,15 @@ public class BoardUI : MonoBehaviour
         squareRenderers[file, rank].material.color = (IsLightSquare(file, rank)) ? lightColor : darkColor;
     }
 
-    public void ResetSquareColors()
+    public void ResetSquareColors(bool highlight = true)
     {
         for (int rank = 0; rank < 8; rank++) {
             for (int file = 0; file < 8; file++) {
                 SetSquareColor(new Coord(file, rank), boardTheme.lightSquares.normal, boardTheme.darkSquares.normal);
             }
+        }
+        if (highlight) {
+            HighlightLastMove(lastStartSquare, lastTargetSquare);
         }
     }
 }
