@@ -22,11 +22,16 @@ public class GameManager : MonoBehaviour
         this.board = board;
     }*/
 
-    public  void NotifyTurnToMove () {
+    public void Start()
+    {
+        boardUI.UpdatePosition(board);
+    }
+
+    public void NotifyTurnToMove () {
 
     }
 
-    public  void Update () {
+    public void Update () {
         HandleInput ();
     }
 
@@ -110,16 +115,16 @@ public class GameManager : MonoBehaviour
     }
 
     void HandlePieceSelection (Vector2 mousePos) {
-			if (Input.GetMouseButtonDown (0)) {
-				if (boardUI.TryGetSquareUnderMouse (mousePos, out selectedPieceSquare)) {
-					//int index = BoardRepresentation.IndexFromCoord (selectedPieceSquare);
-					// If square contains a piece, select that piece for dragging
-					if (board.GetSquares()[selectedPieceSquare.fileIndex, selectedPieceSquare.rankIndex].GetColor() == board.colorToMove) {
-						//boardUI.HighlightLegalMoves (board, selectedPieceSquare);
-						boardUI.SelectSquare (selectedPieceSquare);
-						currentState = InputState.DraggingPiece;
-					}
-				}
-			}
-		}
+        if (Input.GetMouseButtonDown (0)) {
+            if (boardUI.TryGetSquareUnderMouse (mousePos, out selectedPieceSquare)) {
+                //int index = BoardRepresentation.IndexFromCoord (selectedPieceSquare);
+                // If square contains a piece, select that piece for dragging
+                if (board.GetSquares()[selectedPieceSquare.fileIndex, selectedPieceSquare.rankIndex].GetColor() == board.colorToMove) {
+                    //boardUI.HighlightLegalMoves (board, selectedPieceSquare);
+                    boardUI.SelectSquare (selectedPieceSquare);
+                    currentState = InputState.DraggingPiece;
+                }
+            }
+        }
+    }
 }
