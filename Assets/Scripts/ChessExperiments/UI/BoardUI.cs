@@ -9,6 +9,9 @@ public class BoardUI : MonoBehaviour
 {
     public BoardTheme boardTheme;
     public PieceTheme pieceTheme;
+    // cburnett is 100 / (12000 / 6f) or 1 / 20f which is 0.05
+    // merida size: 100 / (700 / 6f) or 6 / 7f which is 0.8571429, pieces link https://www.zoomchess.com/images/sets/merida/
+    public float pieceSizeModifier = 100 / (12000 / 6f);
     public Board board = new Board();
     public bool whiteIsBottom = true;
     MeshRenderer[, ] squareRenderers;
@@ -55,10 +58,6 @@ public class BoardUI : MonoBehaviour
 
     void HighlightLastMove(Coord startCoord, Coord targetCoord)
     {
-        /*if (whiteIsBottom == false) {
-            startCoord = BlackOnBottomCoord(startCoord);
-            targetCoord = BlackOnBottomCoord(targetCoord);
-        }*/
         SetSquareColor(startCoord, boardTheme.lightSquares.moveFromHighlight, boardTheme.darkSquares.moveFromHighlight);
         SetSquareColor(targetCoord, boardTheme.lightSquares.moveToHighlight, boardTheme.darkSquares.moveToHighlight);
     }
@@ -76,6 +75,7 @@ public class BoardUI : MonoBehaviour
     {
         lastStartSquare = startSquare;
         lastTargetSquare = targetSquare;
+        FlipBoard(); // Comment this out if you don't want the flip to each turn.
         UpdatePosition(board);
         ResetSquareColors();
     }
@@ -133,7 +133,7 @@ public class BoardUI : MonoBehaviour
                 SpriteRenderer pieceRenderer = new GameObject ("Piece").AddComponent<SpriteRenderer> ();
                 pieceRenderer.transform.parent = square;
                 pieceRenderer.transform.position = PositionFromCoord (file, rank, pieceDepth);
-                pieceRenderer.transform.localScale = Vector3.one * 100 / (12000 / 6f);
+                pieceRenderer.transform.localScale = Vector3.one * pieceSizeModifier;
                 squarePieceRenderers[file, rank] = pieceRenderer;
             }
         }
@@ -174,5 +174,14 @@ public class BoardUI : MonoBehaviour
         int newFile = 7 - coord.fileIndex;
         int newRank = 7 - coord.rankIndex;
         return new Coord(newFile, newRank);
+    }
+
+    public void FlipBoard()
+    {
+        if (whiteIsBottom) {
+            whiteIsBottom = false;
+        } else {
+            whiteIsBottom = true;
+        }
     }
 }
