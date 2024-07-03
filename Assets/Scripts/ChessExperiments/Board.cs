@@ -67,23 +67,21 @@ public class Board
 
     public Coord[] GenerateMoves(Coord pieceCoord)
     {
-        Coord[] emptyMoveList = new Coord[2];
-        
         switch (squares[pieceCoord.fileIndex, pieceCoord.rankIndex].GetPiece()) {
             case Piece.Pawn:
-                return emptyMoveList;
+                return GeneratePawnMoves(pieceCoord);
             case Piece.Knight:
                 return GenerateKnightMoves(pieceCoord);
             case Piece.Bishop:
-                return emptyMoveList;
+                return GenerateBishopMoves(pieceCoord);
             case Piece.Rook:
-                return emptyMoveList;
+                return GenerateRookMoves(pieceCoord);
             case Piece.Queen:
-                return emptyMoveList;
+                return GenerateQueenMoves(pieceCoord);
             case Piece.King:
-                return emptyMoveList;
+                return GenerateKingMoves(pieceCoord);
             default:
-                return emptyMoveList;
+                return new Coord[2];
         }
     }
 
@@ -92,32 +90,32 @@ public class Board
         return (file < 8 && file > -1 && rank < 8 && rank > -1 && squares[file, rank].GetColor() != pieceColor) ? new Coord(file, rank) : new Coord(-1,-1);
     }
 
-    public bool PawnToMove(Coord startCoord, Coord endCoord)
+    public bool PieceToMove(Coord startCoord, Coord endCoord)
     {
-        int startFile = startCoord.fileIndex;
-        int startRank = startCoord.rankIndex;
-        int endFile = endCoord.fileIndex;
-        int endRank = endCoord.rankIndex;
-
         return true;
     }
 
-    public bool KnightToMove(Coord startCoord, Coord endCoord)
+    public Coord[] GeneratePawnMoves(Coord pieceCoord)
     {
-        int startFile = startCoord.fileIndex;
-        int startRank = startCoord.rankIndex;
-        int endFile = endCoord.fileIndex;
-        int endRank = endCoord.rankIndex;
+        Coord[] moves = new Coord[64];
+        int pieceFile = pieceCoord.fileIndex;
+        int pieceRank = pieceCoord.rankIndex;
+        int pieceColor = squares[pieceFile, pieceRank].GetColor();
 
-        bool moveIsLegal = false;
-        Coord[] legalMoves = GenerateKnightMoves(startCoord);
-        for (int i = 0; i < legalMoves.Length; i++) {
-            if (legalMoves[i].fileIndex == endFile && legalMoves[i].rankIndex == endRank) {
-                moveIsLegal = true;
+        // This makes all squares legal moves to be a functioning stub.
+        int moveIndex = 0;
+        for (int rank = 0; rank < 8; rank++) {
+            for (int file = 0; file < 8; file++) {
+                if (IsCoordValid(file, rank, pieceColor).fileIndex != -1) {
+                    moves[moveIndex] = new Coord(file, rank);
+                } else {
+                    moves[moveIndex] = new Coord(-1,-1);
+                }
+                moveIndex++;
             }
         }
 
-        return moveIsLegal;
+        return moves;
     }
 
 
@@ -127,7 +125,6 @@ public class Board
         int pieceFile = pieceCoord.fileIndex;
         int pieceRank = pieceCoord.rankIndex;
         int pieceColor = squares[pieceFile, pieceRank].GetColor();
-        Coord empty = new Coord(-1,-1);
         int newFile;
         int newRank;
         
@@ -160,68 +157,139 @@ public class Board
         return moves;
     }
 
-    public bool BishopToMove(Coord startCoord, Coord endCoord)
+    public Coord[] GenerateBishopMoves(Coord pieceCoord)
     {
-        int startFile = startCoord.fileIndex;
-        int startRank = startCoord.rankIndex;
-        int endFile = endCoord.fileIndex;
-        int endRank = endCoord.rankIndex;
+        Coord[] moves = new Coord[64];
+        int pieceFile = pieceCoord.fileIndex;
+        int pieceRank = pieceCoord.rankIndex;
+        int pieceColor = squares[pieceFile, pieceRank].GetColor();
 
-        return true;
+        // This makes all squares legal moves to be a functioning stub.
+        int moveIndex = 0;
+        for (int rank = 0; rank < 8; rank++) {
+            for (int file = 0; file < 8; file++) {
+                if (IsCoordValid(file, rank, pieceColor).fileIndex != -1) {
+                    moves[moveIndex] = new Coord(file, rank);
+                } else {
+                    moves[moveIndex] = new Coord(-1,-1);
+                }
+                moveIndex++;
+            }
+        }
+
+        return moves;
     }
 
-    public bool RookToMove(Coord startCoord, Coord endCoord)
+    public Coord[] GenerateRookMoves(Coord pieceCoord)
     {
-        int startFile = startCoord.fileIndex;
-        int startRank = startCoord.rankIndex;
-        int endFile = endCoord.fileIndex;
-        int endRank = endCoord.rankIndex;
+        Coord[] moves = new Coord[64];
+        int pieceFile = pieceCoord.fileIndex;
+        int pieceRank = pieceCoord.rankIndex;
+        int pieceColor = squares[pieceFile, pieceRank].GetColor();
 
-        return true;
+        // This makes all squares legal moves to be a functioning stub.
+        int moveIndex = 0;
+        for (int rank = 0; rank < 8; rank++) {
+            for (int file = 0; file < 8; file++) {
+                if (IsCoordValid(file, rank, pieceColor).fileIndex != -1) {
+                    moves[moveIndex] = new Coord(file, rank);
+                } else {
+                    moves[moveIndex] = new Coord(-1,-1);
+                }
+                moveIndex++;
+            }
+        }
+
+        return moves;
     }
 
-    public bool QueenToMove(Coord startCoord, Coord endCoord)
+    public Coord[] GenerateQueenMoves(Coord pieceCoord)
     {
-        int startFile = startCoord.fileIndex;
-        int startRank = startCoord.rankIndex;
-        int endFile = endCoord.fileIndex;
-        int endRank = endCoord.rankIndex;
+        Coord[] moves = new Coord[64];
+        int pieceFile = pieceCoord.fileIndex;
+        int pieceRank = pieceCoord.rankIndex;
+        int pieceColor = squares[pieceFile, pieceRank].GetColor();
 
-        return true;
+        // This makes all squares legal moves to be a functioning stub.
+        int moveIndex = 0;
+        for (int rank = 0; rank < 8; rank++) {
+            for (int file = 0; file < 8; file++) {
+                if (IsCoordValid(file, rank, pieceColor).fileIndex != -1) {
+                    moves[moveIndex] = new Coord(file, rank);
+                } else {
+                    moves[moveIndex] = new Coord(-1,-1);
+                }
+                moveIndex++;
+            }
+        }
+
+        return moves;
     }
 
-    public bool KingToMove(Coord startCoord, Coord endCoord)
+    public Coord[] GenerateKingMoves(Coord pieceCoord)
     {
-        int startFile = startCoord.fileIndex;
-        int startRank = startCoord.rankIndex;
-        int endFile = endCoord.fileIndex;
-        int endRank = endCoord.rankIndex;
+        Coord[] moves = new Coord[64];
+        int pieceFile = pieceCoord.fileIndex;
+        int pieceRank = pieceCoord.rankIndex;
+        int pieceColor = squares[pieceFile, pieceRank].GetColor();
 
-        return true;
+        // This makes all squares legal moves to be a functioning stub.
+        int moveIndex = 0;
+        for (int rank = 0; rank < 8; rank++) {
+            for (int file = 0; file < 8; file++) {
+                if (IsCoordValid(file, rank, pieceColor).fileIndex != -1) {
+                    moves[moveIndex] = new Coord(file, rank);
+                } else {
+                    moves[moveIndex] = new Coord(-1,-1);
+                }
+                moveIndex++;
+            }
+        }
+
+        return moves;
     }
 
     public bool IsMoveLegal(Coord startCoord, Coord endCoord)
     {
         int startFile = startCoord.fileIndex;
         int startRank = startCoord.rankIndex;
+        int endFile = endCoord.fileIndex;
+        int endRank = endCoord.rankIndex;
         int movingPiece = squares[startFile, startRank].GetPiece();
-        
+        bool moveIsLegal = false;
+        Coord[] legalMoves;
+
         switch (movingPiece) {
             case Piece.Pawn:
-                return PawnToMove(startCoord, endCoord);
+                legalMoves = GeneratePawnMoves(startCoord);
+                break;
             case Piece.Knight:
-                return KnightToMove(startCoord, endCoord);
+                legalMoves = GenerateKnightMoves(startCoord);
+                break;
             case Piece.Bishop:
-                return BishopToMove(startCoord, endCoord);
+                legalMoves = GenerateBishopMoves(startCoord);
+                break;
             case Piece.Rook:
-                return RookToMove(startCoord, endCoord);
+                legalMoves = GenerateRookMoves(startCoord);
+                break;
             case Piece.Queen:
-                return QueenToMove(startCoord, endCoord);
+                legalMoves = GenerateQueenMoves(startCoord);
+                break;
             case Piece.King:
-                return KingToMove(startCoord, endCoord);
+                legalMoves = GenerateKingMoves(startCoord);
+                break;
             default:
-                return false;
+                legalMoves = new Coord[2];
+                break;
         }
+
+        for (int i = 0; i < legalMoves.Length; i++) {
+            if (legalMoves[i].fileIndex == endFile && legalMoves[i].rankIndex == endRank) {
+                moveIsLegal = true;
+            }
+        }
+
+        return moveIsLegal;
     }
 
     public void MakeMove(Coord startCoord, Coord endCoord)

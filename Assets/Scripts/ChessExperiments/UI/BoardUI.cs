@@ -27,12 +27,22 @@ public class BoardUI : MonoBehaviour
     }
 
     public void DragPiece (Coord pieceCoord, Vector2 mousePos) {
-        squarePieceRenderers[pieceCoord.fileIndex, pieceCoord.rankIndex].transform.position = new Vector3 (mousePos.x, mousePos.y, pieceDragDepth);
+        if (whiteIsBottom) {
+            squarePieceRenderers[pieceCoord.fileIndex, pieceCoord.rankIndex].transform.position = new Vector3 (mousePos.x, mousePos.y, pieceDragDepth);
+        } else {
+            squarePieceRenderers[7 - pieceCoord.fileIndex, 7 - pieceCoord.rankIndex].transform.position = new Vector3 (mousePos.x, mousePos.y, pieceDragDepth);
+
+        }
     }
 
     public void ResetPiecePosition (Coord pieceCoord) {
-        Vector3 pos = PositionFromCoord (pieceCoord.fileIndex, pieceCoord.rankIndex, pieceDepth);
-        squarePieceRenderers[pieceCoord.fileIndex, pieceCoord.rankIndex].transform.position = pos;
+        if (whiteIsBottom) {
+            Vector3 pos = PositionFromCoord (pieceCoord.fileIndex, pieceCoord.rankIndex, pieceDepth);
+            squarePieceRenderers[pieceCoord.fileIndex, pieceCoord.rankIndex].transform.position = pos;
+        } else {
+            Vector3 pos = PositionFromCoord (7 - pieceCoord.fileIndex, 7 - pieceCoord.rankIndex, pieceDepth);
+            squarePieceRenderers[7 - pieceCoord.fileIndex, 7 - pieceCoord.rankIndex].transform.position = pos;
+        }
     }
 
     public void SelectSquare (Coord coord) {
@@ -45,6 +55,10 @@ public class BoardUI : MonoBehaviour
 
     void HighlightLastMove(Coord startCoord, Coord targetCoord)
     {
+        /*if (whiteIsBottom == false) {
+            startCoord = BlackOnBottomCoord(startCoord);
+            targetCoord = BlackOnBottomCoord(targetCoord);
+        }*/
         SetSquareColor(startCoord, boardTheme.lightSquares.moveFromHighlight, boardTheme.darkSquares.moveFromHighlight);
         SetSquareColor(targetCoord, boardTheme.lightSquares.moveToHighlight, boardTheme.darkSquares.moveToHighlight);
     }
@@ -69,7 +83,7 @@ public class BoardUI : MonoBehaviour
     public bool TryGetSquareUnderMouse (Vector2 mouseWorld, out Coord selectedCoord) {
         int file = (int) (mouseWorld.x + 4);
         int rank = (int) (mouseWorld.y + 4);
-        if (!whiteIsBottom) {
+        if (whiteIsBottom == false) {
             file = 7 - file;
             rank = 7 - rank;
         }
@@ -84,8 +98,13 @@ public class BoardUI : MonoBehaviour
                 int pieceType = squares[file, rank].GetPiece();
                 int pieceColor = squares[file, rank].GetColor();
 
-                squarePieceRenderers[file, rank].sprite = pieceTheme.GetPieceSprite(pieceType, pieceColor);
-                squarePieceRenderers[file, rank].transform.position = PositionFromCoord(file, rank);
+                if (whiteIsBottom) {
+                    squarePieceRenderers[file, rank].sprite = pieceTheme.GetPieceSprite(pieceType, pieceColor);
+                    squarePieceRenderers[file, rank].transform.position = PositionFromCoord(file, rank);
+                } else {
+                    squarePieceRenderers[7 - file, 7 - rank].sprite = pieceTheme.GetPieceSprite(pieceType, pieceColor);
+                    squarePieceRenderers[7 - file, 7 - rank].transform.position = PositionFromCoord(7 - file, 7 - rank);
+                }
             }
         }
     }
@@ -128,6 +147,9 @@ public class BoardUI : MonoBehaviour
 
     void SetSquareColor(Coord coord, Color lightColor, Color darkColor)
     {
+        if (whiteIsBottom == false) {
+            coord = BlackOnBottomCoord(coord);
+        }
         int file = coord.fileIndex;
         int rank = coord.rankIndex;
         squareRenderers[file, rank].material.color = (IsLightSquare(file, rank)) ? lightColor : darkColor;
@@ -145,5 +167,12 @@ public class BoardUI : MonoBehaviour
                 HighlightLastMove(lastStartSquare, lastTargetSquare);
             }
         }
+    }
+
+    private Coord BlackOnBottomCoord(Coord coord)
+    {
+        int newFile = 7 - coord.fileIndex;
+        int newRank = 7 - coord.rankIndex;
+        return new Coord(newFile, newRank);
     }
 }
