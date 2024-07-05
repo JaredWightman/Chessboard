@@ -174,6 +174,7 @@ public class Board
 
     public Coord[] GetDiagonalMoves(Coord pieceCoord)
     {
+        // Initialize all the attributes
         Coord[] moves = new Coord[64];
         int pieceFile = pieceCoord.fileIndex;
         int pieceRank = pieceCoord.rankIndex;
@@ -183,6 +184,7 @@ public class Board
         int moveIndex = 0;
         bool canContinue = true;
         
+        // Move Upper Right
         newRank = pieceRank + 1;
         newFile = pieceFile + 1;
         while (canContinue == true)
@@ -196,6 +198,52 @@ public class Board
             newFile++;
             moveIndex++;
         }
+
+        canContinue = true;
+        newRank = pieceRank + 1;
+        newFile = pieceFile - 1;
+        while (canContinue == true)
+        {
+            if (newFile > 7 || newFile < 0 || newRank > 7 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
+            {
+                canContinue = false;
+            }
+            moves[moveIndex] = IsCoordValid(newFile, newRank, pieceColor);
+            newRank++;
+            newFile--;
+            moveIndex++;
+        }
+        
+        canContinue = true;
+        newRank = pieceRank - 1;
+        newFile = pieceFile - 1;
+        while (canContinue == true)
+        {
+            if (newFile > 7 || newFile < 0 || newRank > 7 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
+            {
+                canContinue = false;
+            }
+            moves[moveIndex] = IsCoordValid(newFile, newRank, pieceColor);
+            newRank--;
+            newFile--;
+            moveIndex++;
+        }
+        
+        canContinue = true;
+        newRank = pieceRank - 1;
+        newFile = pieceFile + 1;
+        while (canContinue == true)
+        {
+            if (newFile > 7 || newFile < 0 || newRank > 7 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
+            {
+                canContinue = false;
+            }
+            moves[moveIndex] = IsCoordValid(newFile, newRank, pieceColor);
+            newRank--;
+            newFile++;
+            moveIndex++;
+        }
+        
         return moves;
     }
 
