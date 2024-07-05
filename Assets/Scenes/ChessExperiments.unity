@@ -291,8 +291,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardTheme: {fileID: 11400000, guid: c6c056c892ada2c4890d441aa76b34c7, type: 2}
-  pieceTheme: {fileID: 11400000, guid: 5d831a0960aa349e7ab957bd112ab7cd, type: 2}
-  pieceSizeModifier: 0.05
+  pieceTheme: {fileID: 11400000, guid: 847fa5fb4fb5a4a5da1d85573689fd01, type: 2}
+  pieceSizeModifier: 0.86
+  doFlipBoard: 0
   whiteIsBottom: 1
   highlight: 1
 --- !u!4 &1900720910

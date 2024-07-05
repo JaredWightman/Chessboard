@@ -12,6 +12,7 @@ public class BoardUI : MonoBehaviour
     // cburnett is 100 / (12000 / 6f) or 1 / 20f which is 0.05
     // merida size: 100 / (700 / 6f) or 6 / 7f which is 0.8571429, pieces link https://www.zoomchess.com/images/sets/merida/
     public float pieceSizeModifier = 100 / (12000 / 6f);
+    public bool doFlipBoard = true;
     public Board board = new Board();
     public bool whiteIsBottom = true;
     MeshRenderer[, ] squareRenderers;
@@ -75,7 +76,9 @@ public class BoardUI : MonoBehaviour
     {
         lastStartSquare = startSquare;
         lastTargetSquare = targetSquare;
-        FlipBoard(); // Comment this out if you don't want the flip to each turn.
+        if (doFlipBoard) {
+            FlipBoard();
+        }
         UpdatePosition(board);
         ResetSquareColors();
     }
