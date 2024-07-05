@@ -102,14 +102,7 @@ public class GameManager : MonoBehaviour
     }
 
     void TryMakeMove (Coord startSquare, Coord targetSquare) {
-        bool moveIsLegal;
-        try {
-            moveIsLegal = board.IsMoveLegal(startSquare, targetSquare);
-        }
-        catch (NullReferenceException)
-        {
-            moveIsLegal = false;
-        }
+        bool moveIsLegal = board.IsMoveLegal(startSquare, targetSquare);
 
         if (moveIsLegal) {
             currentState = InputState.None;
