@@ -18,6 +18,7 @@ public class Board
 
     public void SetBoard()
     {
+        // Set the board with the starting pieces in their starting positions
         squares = new Square[8, 8] {
             {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
             {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
@@ -67,6 +68,9 @@ public class Board
 
     public Coord[] GenerateMoves(Coord pieceCoord)
     {
+        /*
+        Generate a list of coordinates that are legal moves for the piece at the given coordinate. 
+        */
         switch (squares[pieceCoord.fileIndex, pieceCoord.rankIndex].GetPiece()) {
             case Piece.Pawn:
                 return GeneratePawnMoves(pieceCoord);
