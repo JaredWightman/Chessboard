@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;*/
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -288,9 +289,16 @@ public class Board
         }
 
         for (int i = 0; i < legalMoves.Length; i++) {
-            if (legalMoves[i].fileIndex == endFile && legalMoves[i].rankIndex == endRank) {
-                moveIsLegal = true;
+            try {
+                if (legalMoves[i].fileIndex == endFile && legalMoves[i].rankIndex == endRank) {
+                    moveIsLegal = true;
+                }
             }
+            catch (NullReferenceException)
+            {
+                break;
+            }
+
         }
 
         return moveIsLegal;
