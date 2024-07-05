@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;*/
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,6 +19,7 @@ public class Board
 
     public void SetBoard()
     {
+        // Set the board with the starting pieces in their starting positions
         squares = new Square[8, 8] {
             {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
             {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
@@ -67,6 +69,9 @@ public class Board
 
     public Coord[] GenerateMoves(Coord pieceCoord)
     {
+        /*
+        Generate a list of coordinates that are legal moves for the piece at the given coordinate. 
+        */
         switch (squares[pieceCoord.fileIndex, pieceCoord.rankIndex].GetPiece()) {
             case Piece.Pawn:
                 return GeneratePawnMoves(pieceCoord);
@@ -298,9 +303,16 @@ public class Board
         }
 
         for (int i = 0; i < legalMoves.Length; i++) {
-            if (legalMoves[i].fileIndex == endFile && legalMoves[i].rankIndex == endRank) {
-                moveIsLegal = true;
+            try {
+                if (legalMoves[i].fileIndex == endFile && legalMoves[i].rankIndex == endRank) {
+                    moveIsLegal = true;
+                }
             }
+            catch (NullReferenceException)
+            {
+                break;
+            }
+
         }
 
         return moveIsLegal;
