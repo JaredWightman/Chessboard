@@ -169,19 +169,33 @@ public class Board
         int pieceRank = pieceCoord.rankIndex;
         int pieceColor = squares[pieceFile, pieceRank].GetColor();
 
-        // This makes all squares legal moves to be a functioning stub.
-        int moveIndex = 0;
-        for (int rank = 0; rank < 8; rank++) {
-            for (int file = 0; file < 8; file++) {
-                if (IsCoordValid(file, rank, pieceColor).fileIndex != -1) {
-                    moves[moveIndex] = new Coord(file, rank);
-                } else {
-                    moves[moveIndex] = new Coord(-1,-1);
-                }
-                moveIndex++;
-            }
-        }
+        return GetDiagonalMoves(pieceCoord);
+    }
 
+    public Coord[] GetDiagonalMoves(Coord pieceCoord)
+    {
+        Coord[] moves = new Coord[64];
+        int pieceFile = pieceCoord.fileIndex;
+        int pieceRank = pieceCoord.rankIndex;
+        int pieceColor = squares[pieceFile, pieceRank].GetColor();
+        int newFile;
+        int newRank;
+        int moveIndex = 0;
+        bool canContinue = true;
+        
+        newRank = pieceRank + 1;
+        newFile = pieceFile + 1;
+        while (canContinue == true)
+        {
+            if (newFile > 7 || newFile < 0 || newRank > 7 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
+            {
+                canContinue = false;
+            }
+            moves[moveIndex] = IsCoordValid(newFile, newRank, pieceColor);
+            newRank++;
+            newFile++;
+            moveIndex++;
+        }
         return moves;
     }
 
