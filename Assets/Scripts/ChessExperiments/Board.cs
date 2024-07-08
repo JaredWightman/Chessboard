@@ -92,12 +92,13 @@ public class Board
 
     private Coord IsCoordValid(int file, int rank, int pieceColor)
     {
+        /*
+        This is for checking a coordinate to make sure that it is on the board and
+        is not the current piece's color. Otherwise it will return a coordinate that
+        won't display or work. This is to make it easier to get coordinates for the
+        move generators.
+        */
         return (file < 8 && file > -1 && rank < 8 && rank > -1 && squares[file, rank].GetColor() != pieceColor) ? new Coord(file, rank) : new Coord(-1,-1);
-    }
-
-    public bool PieceToMove(Coord startCoord, Coord endCoord)
-    {
-        return true;
     }
 
     public Coord[] GeneratePawnMoves(Coord pieceCoord)
