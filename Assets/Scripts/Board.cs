@@ -111,38 +111,50 @@ public class Board
         int newFile;
         
         // Pawn Single & Double
-        newRank = pieceRank + 2;
-        newFile = pieceFile + 0;
-        moves[0] = IsCoordValid(newFile, newRank, pieceColor);
-        newRank = pieceRank - 2;
-        moves[1] = IsCoordValid(newFile, newRank, pieceColor);
-        newRank = pieceRank + 1;
-        moves[2] = IsCoordValid(newFile, newRank, pieceColor);
-        newRank = pieceRank - 1;
-        moves[3] = IsCoordValid(newFile, newRank, pieceColor);
+        // newRank = pieceRank + 2;
+        // newFile = pieceFile + 0;
+        // moves[0] = IsCoordValid(newFile, newRank, pieceColor);
+        // newRank = pieceRank - 2;
+        // moves[1] = IsCoordValid(newFile, newRank, pieceColor);
+        // newRank = pieceRank + 1;
+        // moves[2] = IsCoordValid(newFile, newRank, pieceColor);
+        // newRank = pieceRank - 1;
+        // moves[3] = IsCoordValid(newFile, newRank, pieceColor);
         
-        // if ()
-        // {
-        //     // Pawn Single & Double
-        //     newRank = pieceRank + 2;
-        //     newFile = pieceFile + 0;
-        //     moves[0] = IsCoordValid(newFile, newRank, pieceColor);
-        //     newRank = pieceRank - 2;
-        //     moves[1] = IsCoordValid(newFile, newRank, pieceColor);
-        //     newRank = pieceRank + 1;
-        //     moves[2] = IsCoordValid(newFile, newRank, pieceColor);
-        //     newRank = pieceRank - 1;
-        //     moves[3] = IsCoordValid(newFile, newRank, pieceColor);
-        // }
-        // else
-        // {
-        //     // Pawn Single Move
-        //     newRank = pieceRank + 1;
-        //     newFile = pieceFile + 0;
-        //     moves[4] = IsCoordValid(newFile, newRank, pieceColor);
-        //     newRank = pieceRank - 1;
-        //     moves[5] = IsCoordValid(newFile, newRank, pieceColor);   
-        // }
+        if (pieceRank == 1 || pieceColor == Piece.White)
+        {
+            // Pawn Single & Double
+            newRank = pieceRank + 2;
+            newFile = pieceFile + 0;
+            moves[0] = IsCoordValid(newFile, newRank, pieceColor);
+            newRank = pieceRank - 2;
+            moves[1] = IsCoordValid(newFile, newRank, pieceColor);
+            newRank = pieceRank + 1;
+            moves[2] = IsCoordValid(newFile, newRank, pieceColor);
+            newRank = pieceRank - 1;
+            moves[3] = IsCoordValid(newFile, newRank, pieceColor);
+        } else if (pieceRank == 6 || pieceColor == Piece.Black)
+        {
+            // Pawn Single & Double
+            newRank = pieceRank + 2;
+            newFile = pieceFile + 0;
+            moves[0] = IsCoordValid(newFile, newRank, pieceColor);
+            newRank = pieceRank - 2;
+            moves[1] = IsCoordValid(newFile, newRank, pieceColor);
+            newRank = pieceRank + 1;
+            moves[2] = IsCoordValid(newFile, newRank, pieceColor);
+            newRank = pieceRank - 1;
+            moves[3] = IsCoordValid(newFile, newRank, pieceColor);
+        }
+        else
+        {
+            // Pawn Single Move
+            newRank = pieceRank + 1;
+            newFile = pieceFile + 0;
+            moves[4] = IsCoordValid(newFile, newRank, pieceColor);
+            newRank = pieceRank - 1;
+            moves[5] = IsCoordValid(newFile, newRank, pieceColor);   
+        }
 
         return moves;
     }
@@ -323,19 +335,65 @@ public class Board
         int pieceFile = pieceCoord.fileIndex;
         int pieceRank = pieceCoord.rankIndex;
         int pieceColor = squares[pieceFile, pieceRank].GetColor();
-
-        // This makes all squares legal moves to be a functioning stub.
-        int moveIndex = 0;
-        for (int rank = 0; rank < 8; rank++) {
-            for (int file = 0; file < 8; file++) {
-                if (IsCoordValid(file, rank, pieceColor).fileIndex != -1) {
-                    moves[moveIndex] = new Coord(file, rank);
-                } else {
-                    moves[moveIndex] = new Coord(-1,-1);
-                }
-                moveIndex++;
-            }
-        }
+        int newRank;
+        int newFile;
+        
+        // Forward
+        newRank = pieceRank + 1;
+        newFile = pieceFile + 0;
+        moves[0] = IsCoordValid(newFile, newRank, pieceColor);
+        newRank = pieceRank - 1;
+        moves[1] = IsCoordValid(newFile, newRank, pieceColor);
+        
+        // Backward
+        newRank = pieceRank - 1;
+        moves[2] = IsCoordValid(newFile, newRank, pieceColor);
+        newRank = pieceRank + 1;
+        moves[3] = IsCoordValid(newFile, newRank, pieceColor);
+        
+        // Right
+        newFile = pieceFile + 1;
+        moves[4] = IsCoordValid(newFile, newRank, pieceColor);
+        newFile = pieceFile - 1;
+        moves[5] = IsCoordValid(newFile, newRank, pieceColor);
+        
+        // Left
+        newFile = pieceFile - 1;
+        moves[6] = IsCoordValid(newFile, newRank, pieceColor);
+        newFile = pieceFile + 1;
+        moves[7] = IsCoordValid(newFile, newRank, pieceColor);
+        
+        // Upper Right
+        newFile = pieceFile + 1;
+        newRank = pieceRank + 1;
+        moves[8] = IsCoordValid(newFile, newRank, pieceColor);
+        newFile = pieceFile - 1;
+        newRank = pieceRank - 1;
+        moves[9] = IsCoordValid(newFile, newRank, pieceColor);
+        
+        // Upper Left
+        newFile = pieceFile - 1;
+        newRank = pieceRank + 1;
+        moves[10] = IsCoordValid(newFile, newRank, pieceColor);
+        newFile = pieceFile + 1;
+        newRank = pieceRank - 1;
+        moves[11] = IsCoordValid(newFile, newRank, pieceColor);
+        
+        // Lower Right
+        newFile = pieceFile + 1;
+        newRank = pieceRank - 1;
+        moves[12] = IsCoordValid(newFile, newRank, pieceColor);
+        newFile = pieceFile - 1;
+        newRank = pieceRank + 1;
+        moves[13] = IsCoordValid(newFile, newRank, pieceColor);
+        
+        // Lower Left
+        newFile = pieceFile - 1;
+        newRank = pieceRank - 1;
+        moves[14] = IsCoordValid(newFile, newRank, pieceColor);
+        newFile = pieceFile + 1;
+        newRank = pieceRank + 1;
+        moves[15] = IsCoordValid(newFile, newRank, pieceColor);
 
         return moves;
     }
