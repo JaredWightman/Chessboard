@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HCBoard/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/FinalProject.unity
+    guid: 66abee7e026be461eae6889d9997a5d3
   m_configObjects: {}
