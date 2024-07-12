@@ -347,60 +347,43 @@ public class Board
         
         // Forward
         newRank = pieceRank + 1;
-        newFile = pieceFile + 0;
+        newFile = pieceFile;
         moves[0] = GiveValidCoord(newFile, newRank, pieceColor);
-        newRank = pieceRank - 1;
-        moves[1] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Backward
         newRank = pieceRank - 1;
-        moves[2] = GiveValidCoord(newFile, newRank, pieceColor);
-        newRank = pieceRank + 1;
-        moves[3] = GiveValidCoord(newFile, newRank, pieceColor);
+        newFile = pieceFile;
+        moves[1] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Right
         newFile = pieceFile + 1;
-        moves[4] = GiveValidCoord(newFile, newRank, pieceColor);
-        newFile = pieceFile - 1;
-        moves[5] = GiveValidCoord(newFile, newRank, pieceColor);
+        newRank = pieceRank;
+        moves[2] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Left
         newFile = pieceFile - 1;
-        moves[6] = GiveValidCoord(newFile, newRank, pieceColor);
-        newFile = pieceFile + 1;
-        moves[7] = GiveValidCoord(newFile, newRank, pieceColor);
+        newRank = pieceRank;
+        moves[3] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Upper Right
         newFile = pieceFile + 1;
         newRank = pieceRank + 1;
-        moves[8] = GiveValidCoord(newFile, newRank, pieceColor);
-        newFile = pieceFile - 1;
-        newRank = pieceRank - 1;
-        moves[9] = GiveValidCoord(newFile, newRank, pieceColor);
+        moves[4] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Upper Left
         newFile = pieceFile - 1;
         newRank = pieceRank + 1;
-        moves[10] = GiveValidCoord(newFile, newRank, pieceColor);
-        newFile = pieceFile + 1;
-        newRank = pieceRank - 1;
-        moves[11] = GiveValidCoord(newFile, newRank, pieceColor);
+        moves[5] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Lower Right
         newFile = pieceFile + 1;
         newRank = pieceRank - 1;
-        moves[12] = GiveValidCoord(newFile, newRank, pieceColor);
-        newFile = pieceFile - 1;
-        newRank = pieceRank + 1;
-        moves[13] = GiveValidCoord(newFile, newRank, pieceColor);
+        moves[6] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Lower Left
         newFile = pieceFile - 1;
         newRank = pieceRank - 1;
-        moves[14] = GiveValidCoord(newFile, newRank, pieceColor);
-        newFile = pieceFile + 1;
-        newRank = pieceRank + 1;
-        moves[15] = GiveValidCoord(newFile, newRank, pieceColor);
+        moves[7] = GiveValidCoord(newFile, newRank, pieceColor);
 
         return moves;
     }
