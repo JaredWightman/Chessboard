@@ -172,27 +172,35 @@ public class Board
         
         // Jumping up
         newRank = pieceRank + 2;
+        // To the right
         newFile = pieceFile + 1;
         moves[0] = GiveValidCoord(newFile, newRank, pieceColor);
+        // To the left
         newFile = pieceFile - 1;
         moves[1] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Jumping down
         newRank = pieceRank - 2;
+        // Still to the left
         moves[2] = GiveValidCoord(newFile, newRank, pieceColor);
+        // To the right
         newFile = pieceFile + 1;
         moves[3] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Jumping right
         newFile = pieceFile + 2;
+        // Up
         newRank = pieceRank + 1;
         moves[4] = GiveValidCoord(newFile, newRank, pieceColor);
+        // Down
         newRank = pieceRank - 1;
         moves[5] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Jumping left
         newFile = pieceFile - 2;
+        // Still down
         moves[6] = GiveValidCoord(newFile, newRank, pieceColor);
+        // Up
         newRank = pieceRank + 1;
         moves[7] = GiveValidCoord(newFile, newRank, pieceColor);
 
@@ -402,7 +410,7 @@ public class Board
     public bool IsMoveLegal(Coord startCoord, Coord endCoord)
     {
         /*
-        Check if 
+        Check if the coord to be moved to is in the list of legal moves for that piece type.
         */
         int startFile = startCoord.fileIndex;
         int startRank = startCoord.rankIndex;
@@ -454,6 +462,9 @@ public class Board
 
     public void MakeMove(Coord startCoord, Coord endCoord)
     {
+        /*
+        Make the move from the start coordinate to the end coordinate and change turns.
+        */
         int startFile = startCoord.fileIndex;
         int startRank = startCoord.rankIndex;
         int endFile = endCoord.fileIndex;
