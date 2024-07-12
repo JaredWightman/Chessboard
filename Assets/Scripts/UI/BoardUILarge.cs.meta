@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 0266970e714e3014c84f7a8a68b5925b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - boardTheme: {fileID: 11400000, guid: c6c056c892ada2c4890d441aa76b34c7, type: 2}
+  - whiteKing: {fileID: 21300000, guid: 68ce77cead09b4e06873b96abf3b8874, type: 3}
+  - whiteQueen: {fileID: 21300000, guid: b80b2d24fe7ef4fdc94b98be0c9af0cd, type: 3}
+  - whiteRook: {fileID: 21300000, guid: ebbd853491e87c544940070975e8c4ee, type: 3}
+  - whiteBishop: {fileID: 21300000, guid: 389d2b81a17aa47248c36780b6713dea, type: 3}
+  - whiteKnight: {fileID: 21300000, guid: 91ec2c02559af4fd195187458e645590, type: 3}
+  - whitePawn: {fileID: 21300000, guid: 3de7b1a90035a4e7d8ea4ed4144b73eb, type: 3}
+  - blackKing: {instanceID: 0}
+  - blackQueen: {instanceID: 0}
+  - blackRook: {instanceID: 0}
+  - blackBishop: {instanceID: 0}
+  - blackKnight: {instanceID: 0}
+  - blackPawn: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

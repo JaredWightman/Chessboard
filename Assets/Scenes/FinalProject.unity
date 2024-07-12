@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1601354886}
-  - component: {fileID: 1601354885}
+  - component: {fileID: 1601354887}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -140,20 +140,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1601354885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1601354884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17ebf5a2817bd45fcb04ff6fedcfea67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boardUI: {fileID: 1914449409}
-  cam: {fileID: 1797261840}
 --- !u!4 &1601354886
 Transform:
   m_ObjectHideFlags: 0
@@ -169,6 +155,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1601354887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601354884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5373e35bf121bae4488524a0d0cff175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardUI: {fileID: 1914449411}
+  cam: {fileID: 1797261840}
 --- !u!1 &1797261838
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,32 +270,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1914449410}
-  - component: {fileID: 1914449409}
+  - component: {fileID: 1914449411}
   m_Layer: 0
-  m_Name: Board
+  m_Name: BoardLarge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1914449409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1914449408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c813e9fcc7ebb546a3c25a60d7bc3b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boardTheme: {fileID: 11400000, guid: c6c056c892ada2c4890d441aa76b34c7, type: 2}
-  pieceTheme: {fileID: 11400000, guid: 847fa5fb4fb5a4a5da1d85573689fd01, type: 2}
-  pieceSizeModifier: 0.86
-  doFlipBoard: 0
-  whiteIsBottom: 1
-  highlight: 1
 --- !u!4 &1914449410
 Transform:
   m_ObjectHideFlags: 0
@@ -311,6 +293,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1914449411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914449408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0266970e714e3014c84f7a8a68b5925b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardTheme: {fileID: 11400000, guid: c6c056c892ada2c4890d441aa76b34c7, type: 2}
+  pieceTheme: {fileID: 11400000, guid: 847fa5fb4fb5a4a5da1d85573689fd01, type: 2}
+  pieceSizeModifier: 0.86
+  doFlipBoard: 0
+  whiteIsBottom: 1
+  highlight: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
