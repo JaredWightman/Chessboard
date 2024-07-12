@@ -33,7 +33,8 @@ This project was developed with Unity and CSharp on VSCode.
 ## Useful Websites and Works Cited
 
 - [Chat GPT](https://chatgpt.com/)
-- [Chess Piece Sprites](https://commons.wikimedia.org/wiki/Category:PNG_chess_pieces/Standard_transparent)
+- [Chess Piece Sprites - cburnett](https://commons.wikimedia.org/wiki/Category:PNG_chess_pieces/Standard_transparent)
+- [Chess Piece Sprites - Merida](https://www.zoomchess.com/images/sets/merida/)
 - [Board Sprite](https://en.m.wikipedia.org/wiki/File:Chessboard480.svg)
 - [Coding Adventure: Chess](https://www.youtube.com/watch?v=U4ogK0MIzqk&ab_channel=SebastianLague)
 - [How to use GitHub with Unity](https://www.youtube.com/watch?v=qpXxcvS-g3g&ab_channel=Brackeys)
