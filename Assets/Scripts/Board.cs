@@ -4,7 +4,9 @@ using UnityEngine;*/
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using UnityEngine;
 
 public class Board
 {
@@ -31,6 +33,7 @@ public class Board
             {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()}
         };
 
+        // Set up white pieces
         squares[0, 0].SetPieceAndColor(Piece.Rook, Piece.White);
         squares[1, 0].SetPieceAndColor(Piece.Knight, Piece.White);
         squares[2, 0].SetPieceAndColor(Piece.Bishop, Piece.White);
@@ -40,6 +43,7 @@ public class Board
         squares[6, 0].SetPieceAndColor(Piece.Knight, Piece.White);
         squares[7, 0].SetPieceAndColor(Piece.Rook, Piece.White);
 
+        // Set all pawns
         for (int i = 0; i < 8; i++) {
             squares[i, 1].SetPieceAndColor(Piece.Pawn, Piece.White);
             squares[i, 6].SetPieceAndColor(Piece.Pawn, Piece.Black);
@@ -54,10 +58,12 @@ public class Board
         squares[6, 7].SetPieceAndColor(Piece.Knight, Piece.Black);
         squares[7, 7].SetPieceAndColor(Piece.Rook, Piece.Black);
 
+        // Init each square's rank and file values
         for (int rank = 0; rank < 8; rank++) {
             for (int file = 0; file < 8; file++) {
                 squares[file, rank].SetFile(file);
                 squares[file, rank].SetRank(rank);
+				//UnityEngine.Debug.Log("Rank:" + rank + " File:" + file);
             }
         }
     }
@@ -189,6 +195,7 @@ public class Board
         
         
         return moves;
+        // CONVERT MOVES INTO SHMOOVES
     }
 
 
@@ -330,6 +337,7 @@ public class Board
         int pieceRank = pieceCoord.rankIndex;
         int pieceColor = squares[pieceFile, pieceRank].GetColor();
 
+<<<<<<< Updated upstream
         // This makes all squares legal moves to be a functioning stub.
         int moveIndex = 0;
         for (int rank = 0; rank < 8; rank++) {
@@ -344,6 +352,9 @@ public class Board
         }
 
         return moves;
+=======
+		return GetLinearMoves(pieceCoord);
+>>>>>>> Stashed changes
     }
 
     public Coord[] GenerateQueenMoves(Coord pieceCoord)
