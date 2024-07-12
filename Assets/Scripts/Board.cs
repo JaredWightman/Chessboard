@@ -564,6 +564,7 @@ public class Board
         int endRank = endCoord.rankIndex;
         int pieceType = squares[startFile, startRank].GetPiece();
 
+        // Pawn promotion
         if (squares[startFile, startRank].GetPiece() == Piece.Pawn) {
             if (squares[startFile, startRank].GetColor() == Piece.White) {
                 if (endRank == length - 1) {
@@ -576,6 +577,7 @@ public class Board
             }
         }
 
+        // Castle king
         if (squares[startFile, startRank].GetPiece() == Piece.King) {
             if (endFile == startFile + 2 && endRank == startRank) {
                 squares[endFile - 1, endRank].SetPieceAndColor(Piece.Rook, squares[startFile, startRank].GetColor());
