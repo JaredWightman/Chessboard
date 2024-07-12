@@ -9,4 +9,9 @@ public class mainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("FinalProject");
     }
+
+    public void BackButton ()
+    {
+        SceneManager.LoadScene("Menu");
+    }
 }
