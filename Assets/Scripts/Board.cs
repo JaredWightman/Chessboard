@@ -155,6 +155,39 @@ public class Board
             }
         }
         
+        // Pawn Capture Code
+        newFile = pieceFile - 1;
+        newRank = pieceRank + 1;
+        if (newFile > -1 && squares[newFile, newRank].GetColor() == Piece.Black)
+        {
+            moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+            moveIndex++;
+        }
+        
+        newFile = pieceFile + 1;
+        newRank = pieceRank + 1;
+        if (newFile < 8 && squares[newFile, newRank].GetColor() == Piece.Black)
+        {
+            moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+            moveIndex++;
+        }
+        
+        newFile = pieceFile - 1;
+        newRank = pieceRank - 1;
+        if (newFile > -1 && squares[newFile, newRank].GetColor() == Piece.White)
+        {
+            moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+            moveIndex++;
+        }
+        
+        newFile = pieceFile + 1;
+        newRank = pieceRank - 1;
+        if (newFile < 8 && squares[newFile, newRank].GetColor() == Piece.White)
+        {
+            moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+        }
+        
+        
         return moves;
     }
 
@@ -385,6 +418,9 @@ public class Board
         newRank = pieceRank - 1;
         moves[7] = GiveValidCoord(newFile, newRank, pieceColor);
 
+        // Castle Code
+        
+        
         return moves;
     }
 
