@@ -433,7 +433,7 @@ public class Board
 
     public Coord[] GenerateKingMoves(Coord pieceCoord)
     {
-        Coord[] moves = new Coord[8]; // Increase and add iterator with castling moves
+        Coord[] moves = new Coord[10]; // Increase and add iterator with castling moves
         int pieceFile = pieceCoord.fileIndex;
         int pieceRank = pieceCoord.rankIndex;
         int pieceColor = squares[pieceFile, pieceRank].GetColor();
@@ -481,6 +481,21 @@ public class Board
         moves[7] = GiveValidCoord(newFile, newRank, pieceColor);
 
 		// Castle Code (may require move index)
+        if (pieceFile == 4) {
+            // Castle king side
+            newFile = pieceFile + 2;
+            newRank = pieceRank;
+            if (squares[newFile, newRank].GetPiece() == Piece.None && squares[pieceFile + 1, pieceRank].GetPiece() == Piece.None && squares[pieceFile + 3, pieceRank].GetPiece() == Piece.Rook && squares[pieceFile + 3, pieceRank].GetColor() == pieceColor) {
+                moves[8] = GiveValidCoord(newFile, newRank, pieceColor);
+            }
+
+            // Castle queen side
+            newFile = pieceFile - 2;
+            newRank = pieceRank;
+            if (squares[newFile, newRank].GetPiece() == Piece.None && squares[pieceFile - 1, pieceRank].GetPiece() == Piece.None && squares[pieceFile - 3, pieceRank].GetPiece() == Piece.None && squares[pieceFile - 4, pieceRank].GetPiece() == Piece.Rook && squares[pieceFile - 4, pieceRank].GetColor() == pieceColor) {
+                moves[9] = GiveValidCoord(newFile, newRank, pieceColor);
+            }
+        }
 
 		return moves;
 	}
@@ -549,6 +564,7 @@ public class Board
         int endRank = endCoord.rankIndex;
         int pieceType = squares[startFile, startRank].GetPiece();
 
+        // Pawn promotion
         if (squares[startFile, startRank].GetPiece() == Piece.Pawn) {
             if (squares[startFile, startRank].GetColor() == Piece.White) {
                 if (endRank == length - 1) {
@@ -558,6 +574,17 @@ public class Board
                 if (endRank == 0) {
                     pieceType = Piece.Queen;
                 }
+            }
+        }
+
+        // Castle king
+        if (squares[startFile, startRank].GetPiece() == Piece.King) {
+            if (endFile == startFile + 2 && endRank == startRank) {
+                squares[endFile - 1, endRank].SetPieceAndColor(Piece.Rook, squares[startFile, startRank].GetColor());
+                squares[endFile + 1, endRank].SetEmpty();
+            } else if (endFile == startFile - 2 && endRank == startRank) {
+                squares[endFile + 1, endRank].SetPieceAndColor(Piece.Rook, squares[startFile, startRank].GetColor());
+                squares[endFile - 2, endRank].SetEmpty();
             }
         }
 
