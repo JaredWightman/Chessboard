@@ -13,7 +13,7 @@ public class BoardUILarge : MonoBehaviour
     // merida size: 100 / (1300 / 6f) or 6 / 13f which is 0.145131429, pieces link https://www.zoomchess.com/images/sets/merida/
     public float pieceSizeModifier = 100 / (12000 / 6f);
     public bool doFlipBoard = true;
-    public Board board = new Board();
+    public BoardLarge board = new BoardLarge();
     public bool whiteIsBottom = true;
     MeshRenderer[, ] squareRenderers;
     SpriteRenderer[, ] squarePieceRenderers;
@@ -72,7 +72,7 @@ public class BoardUILarge : MonoBehaviour
         } 
     }
 
-    public void OnMoveMade(Board board, Coord startSquare, Coord targetSquare)
+    public void OnMoveMade(BoardLarge board, Coord startSquare, Coord targetSquare)
     {
         lastStartSquare = startSquare;
         lastTargetSquare = targetSquare;
@@ -84,8 +84,9 @@ public class BoardUILarge : MonoBehaviour
     }
 
     public bool TryGetSquareUnderMouse (Vector2 mouseWorld, out Coord selectedCoord) {
-        int file = (int) (mouseWorld.x + 4);
-        int rank = (int) (mouseWorld.y + 4);
+		//int file = (int) (mouseWorld.x + 4);
+		int file = (int)(mouseWorld.x + 7);
+		int rank = (int) (mouseWorld.y + 4);
         if (whiteIsBottom == false) {
             file = 13 - file;
             rank = 7 - rank;
@@ -94,7 +95,7 @@ public class BoardUILarge : MonoBehaviour
         return file >= 0 && file < 14 && rank >= 0 && rank < 8;
     }
 
-    public void UpdatePosition(Board board) {
+    public void UpdatePosition(BoardLarge board) {
         Square[,] squares = board.GetSquares();
         for (int rank = 0; rank < 8; rank++) {
             for (int file = 0; file < 14; file++) {

@@ -433,71 +433,119 @@ public class Board
 
     public Coord[] GenerateKingMoves(Coord pieceCoord)
     {
-        Coord[] moves = new Coord[10]; // Increase and add iterator with castling moves
+        Coord[] moves = new Coord[10];
         int pieceFile = pieceCoord.fileIndex;
         int pieceRank = pieceCoord.rankIndex;
         int pieceColor = squares[pieceFile, pieceRank].GetColor();
         int newRank;
         int newFile;
+        int moveIndex = 0;
 
 		// Forward
 		newRank = pieceRank + 1;
         newFile = pieceFile;
-        moves[0] = GiveValidCoord(newFile, newRank, pieceColor);
-        
-        // Backward
-        newRank = pieceRank - 1;
+		if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+		}
+
+		// Backward
+		newRank = pieceRank - 1;
         newFile = pieceFile;
-        moves[1] = GiveValidCoord(newFile, newRank, pieceColor);
-        
-        // Right
-        newFile = pieceFile + 1;
+		if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+		}
+
+		// Right
+		newFile = pieceFile + 1;
         newRank = pieceRank;
-        moves[2] = GiveValidCoord(newFile, newRank, pieceColor);
-        
-        // Left
-        newFile = pieceFile - 1;
+		if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+		}
+
+		// Left
+		newFile = pieceFile - 1;
         newRank = pieceRank;
-        moves[3] = GiveValidCoord(newFile, newRank, pieceColor);
-        
-        // Upper Right
-        newFile = pieceFile + 1;
+		if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+		}
+
+		// Upper Right
+		newFile = pieceFile + 1;
         newRank = pieceRank + 1;
-        moves[4] = GiveValidCoord(newFile, newRank, pieceColor);
-        
-        // Upper Left
-        newFile = pieceFile - 1;
+		if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+		}
+
+		// Upper Left
+		newFile = pieceFile - 1;
         newRank = pieceRank + 1;
-        moves[5] = GiveValidCoord(newFile, newRank, pieceColor);
-        
-        // Lower Right
-        newFile = pieceFile + 1;
+		if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+		}
+
+		// Lower Right
+		newFile = pieceFile + 1;
         newRank = pieceRank - 1;
-        moves[6] = GiveValidCoord(newFile, newRank, pieceColor);
-        
-        // Lower Left
-        newFile = pieceFile - 1;
+		if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+		}
+
+		// Lower Left
+		newFile = pieceFile - 1;
         newRank = pieceRank - 1;
-        moves[7] = GiveValidCoord(newFile, newRank, pieceColor);
+		if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+		}
 
 		// Castle Code (may require move index)
-        if (pieceFile == 4) {
+		if (pieceFile == 4) {
             // Castle king side
             newFile = pieceFile + 2;
             newRank = pieceRank;
             if (squares[newFile, newRank].GetPiece() == Piece.None && squares[pieceFile + 1, pieceRank].GetPiece() == Piece.None && squares[pieceFile + 3, pieceRank].GetPiece() == Piece.Rook && squares[pieceFile + 3, pieceRank].GetColor() == pieceColor) {
-                moves[8] = GiveValidCoord(newFile, newRank, pieceColor);
-            }
+				if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+				{
+					moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+					moveIndex++;
+				}
+			}
 
             // Castle queen side
             newFile = pieceFile - 2;
             newRank = pieceRank;
             if (squares[newFile, newRank].GetPiece() == Piece.None && squares[pieceFile - 1, pieceRank].GetPiece() == Piece.None && squares[pieceFile - 3, pieceRank].GetPiece() == Piece.None && squares[pieceFile - 4, pieceRank].GetPiece() == Piece.Rook && squares[pieceFile - 4, pieceRank].GetColor() == pieceColor) {
-                moves[9] = GiveValidCoord(newFile, newRank, pieceColor);
-            }
+				if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+				{
+					moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+					moveIndex++;
+				}
+			}
         }
 
-		return moves;
+		Coord[] shmooves = new Coord[moveIndex];
+		moveIndex = 0;
+		foreach (Coord i in shmooves)
+		{
+			shmooves[moveIndex] = moves[moveIndex];
+			moveIndex++;
+		}
+		return shmooves;
 	}
 
     public bool IsMoveLegal(Coord startCoord, Coord endCoord)

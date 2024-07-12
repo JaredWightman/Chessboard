@@ -16,7 +16,7 @@ public class GameManagerLarge : MonoBehaviour
     public BoardUILarge boardUI;
     public Camera cam;
     Coord selectedPieceSquare;
-    Board board = new Board();
+    BoardLarge board = new BoardLarge();
     /*public GameManager (Board board) {
         boardUI = GameObject.FindObjectOfType<BoardUI> ();
         cam = Camera.main;
