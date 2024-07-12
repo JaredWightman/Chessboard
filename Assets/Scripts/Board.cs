@@ -545,8 +545,21 @@ public class Board
         int startRank = startCoord.rankIndex;
         int endFile = endCoord.fileIndex;
         int endRank = endCoord.rankIndex;
+        int pieceType = squares[startFile, startRank].GetPiece();
 
-        squares[endFile, endRank].SetPieceAndColor(squares[startFile, startRank].GetPiece(), squares[startFile, startRank].GetColor());
+        if (squares[startFile, startRank].GetPiece() == Piece.Pawn) {
+            if (squares[startFile, startRank].GetColor() == Piece.White) {
+                if (endRank == 7) {
+                    pieceType = Piece.Queen;
+                }
+            } else if (squares[startFile, startRank].GetColor() == Piece.Black) {
+                if (endRank == 0) {
+                    pieceType = Piece.Queen;
+                }
+            }
+        }
+
+        squares[endFile, endRank].SetPieceAndColor(pieceType, squares[startFile, startRank].GetColor());
         squares[startFile, startRank].SetEmpty();
         if (colorToMove == Piece.White) {
             colorToMove = Piece.Black;
