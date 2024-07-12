@@ -94,10 +94,10 @@ public class Board
     private Coord GiveValidCoord(int file, int rank, int pieceColor)
     {
         /*
-        This is for checking a coordinate to make sure that it is on the board and
-        is not the current piece's color. Otherwise it will return a coordinate that
-        won't display or work. This is to make it easier to get coordinates for the
-        move generators.
+        This is for checking a coordinate for a possible move to make sure that it is
+        on the board and is not the color of the current piece trying to move to that
+        sqaure. Otherwise it will return a coordinate that won't display or work. This
+        is to make it easier to get coordinates for the move generators.
         */
         return (file < 8 && file > -1 && rank < 8 && rank > -1 && squares[file, rank].GetColor() != pieceColor) ? new Coord(file, rank) : new Coord(-1,-1);
     }
@@ -110,53 +110,51 @@ public class Board
         int pieceColor = squares[pieceFile, pieceRank].GetColor();
         int newRank;
         int newFile;
-        
-        // Pawn Single & Double
-        // newRank = pieceRank + 2;
-        // newFile = pieceFile + 0;
-        // moves[0] = GiveValidCoord(newFile, newRank, pieceColor);
-        // newRank = pieceRank - 2;
-        // moves[1] = GiveValidCoord(newFile, newRank, pieceColor);
-        // newRank = pieceRank + 1;
-        // moves[2] = GiveValidCoord(newFile, newRank, pieceColor);
-        // newRank = pieceRank - 1;
-        // moves[3] = GiveValidCoord(newFile, newRank, pieceColor);
-        
-        if (pieceRank == 1 || pieceColor == Piece.White)
+        int moveIndex = 0;
+
+        if (squares[pieceFile, pieceRank].GetColor() == Piece.White)
         {
-            // Pawn Single & Double
-            newRank = pieceRank + 2;
-            newFile = pieceFile + 0;
-            moves[0] = GiveValidCoord(newFile, newRank, pieceColor);
-            newRank = pieceRank - 2;
-            moves[1] = GiveValidCoord(newFile, newRank, pieceColor);
-            newRank = pieceRank + 1;
-            moves[2] = GiveValidCoord(newFile, newRank, pieceColor);
-            newRank = pieceRank - 1;
-            moves[3] = GiveValidCoord(newFile, newRank, pieceColor);
-        } else if (pieceRank == 6 || pieceColor == Piece.Black)
-        {
-            // Pawn Single & Double
-            newRank = pieceRank + 2;
-            newFile = pieceFile + 0;
-            moves[0] = GiveValidCoord(newFile, newRank, pieceColor);
-            newRank = pieceRank - 2;
-            moves[1] = GiveValidCoord(newFile, newRank, pieceColor);
-            newRank = pieceRank + 1;
-            moves[2] = GiveValidCoord(newFile, newRank, pieceColor);
-            newRank = pieceRank - 1;
-            moves[3] = GiveValidCoord(newFile, newRank, pieceColor);
-        }
-        else
-        {
-            // Pawn Single Move
             newRank = pieceRank + 1;
             newFile = pieceFile + 0;
-            moves[4] = GiveValidCoord(newFile, newRank, pieceColor);
-            newRank = pieceRank - 1;
-            moves[5] = GiveValidCoord(newFile, newRank, pieceColor);   
+            if (squares[pieceFile, newRank].GetColor() == Piece.None)
+            {
+
+                moves[moveIndex] = GiveValidCoord(pieceFile, newRank , pieceColor);
+                if (pieceRank == 1)
+                {
+                    if (squares[pieceFile, pieceRank + 2].GetColor() == Piece.None)
+                    {
+                        moveIndex++;
+                        newRank = pieceRank + 2;
+                        moves[moveIndex] = GiveValidCoord(pieceFile, newRank, pieceColor);
+
+                    }
+                }
+
+                moveIndex++;
+            }
         }
 
+        if (squares[pieceFile, pieceRank].GetColor() == Piece.Black)
+        {
+            newRank = pieceRank - 1;
+            newFile = pieceFile + 0;
+            if (squares[pieceFile, newRank].GetColor() == Piece.None)
+            {
+                moves[moveIndex] = GiveValidCoord(pieceFile, newRank, pieceColor);
+                if (pieceRank == 6)
+                {
+                    if (squares[pieceFile, newRank -= 1].GetColor() == Piece.None)
+                    {
+                        moveIndex++;
+                        moves[moveIndex] = GiveValidCoord(pieceFile, newRank, pieceColor);
+                    }
+                }
+
+                moveIndex++;
+            }
+        }
+        
         return moves;
     }
 
@@ -349,60 +347,43 @@ public class Board
         
         // Forward
         newRank = pieceRank + 1;
-        newFile = pieceFile + 0;
+        newFile = pieceFile;
         moves[0] = GiveValidCoord(newFile, newRank, pieceColor);
-        newRank = pieceRank - 1;
-        moves[1] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Backward
         newRank = pieceRank - 1;
-        moves[2] = GiveValidCoord(newFile, newRank, pieceColor);
-        newRank = pieceRank + 1;
-        moves[3] = GiveValidCoord(newFile, newRank, pieceColor);
+        newFile = pieceFile;
+        moves[1] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Right
         newFile = pieceFile + 1;
-        moves[4] = GiveValidCoord(newFile, newRank, pieceColor);
-        newFile = pieceFile - 1;
-        moves[5] = GiveValidCoord(newFile, newRank, pieceColor);
+        newRank = pieceRank;
+        moves[2] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Left
         newFile = pieceFile - 1;
-        moves[6] = GiveValidCoord(newFile, newRank, pieceColor);
-        newFile = pieceFile + 1;
-        moves[7] = GiveValidCoord(newFile, newRank, pieceColor);
+        newRank = pieceRank;
+        moves[3] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Upper Right
         newFile = pieceFile + 1;
         newRank = pieceRank + 1;
-        moves[8] = GiveValidCoord(newFile, newRank, pieceColor);
-        newFile = pieceFile - 1;
-        newRank = pieceRank - 1;
-        moves[9] = GiveValidCoord(newFile, newRank, pieceColor);
+        moves[4] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Upper Left
         newFile = pieceFile - 1;
         newRank = pieceRank + 1;
-        moves[10] = GiveValidCoord(newFile, newRank, pieceColor);
-        newFile = pieceFile + 1;
-        newRank = pieceRank - 1;
-        moves[11] = GiveValidCoord(newFile, newRank, pieceColor);
+        moves[5] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Lower Right
         newFile = pieceFile + 1;
         newRank = pieceRank - 1;
-        moves[12] = GiveValidCoord(newFile, newRank, pieceColor);
-        newFile = pieceFile - 1;
-        newRank = pieceRank + 1;
-        moves[13] = GiveValidCoord(newFile, newRank, pieceColor);
+        moves[6] = GiveValidCoord(newFile, newRank, pieceColor);
         
         // Lower Left
         newFile = pieceFile - 1;
         newRank = pieceRank - 1;
-        moves[14] = GiveValidCoord(newFile, newRank, pieceColor);
-        newFile = pieceFile + 1;
-        newRank = pieceRank + 1;
-        moves[15] = GiveValidCoord(newFile, newRank, pieceColor);
+        moves[7] = GiveValidCoord(newFile, newRank, pieceColor);
 
         return moves;
     }
