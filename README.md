@@ -4,7 +4,7 @@
 The purpose behind this project is to learn teamwork and development concepts surrounding game development with Unity, collaboration using version control (specifically Git/Github), and increasing our knowledge of C#. We've designed and built a chess game that presents a main menu to the user, and allows them to begin a new turn-based game. We prevent illegal moves, highlight available moves, and recognize when an opposing team's piece is captured. 
 
 ## Code Overview
-### GameManager.cs 
+### [GameManager.cs](Assets/Scenes/HCBoard/Scripts/GameManager.cs) 
 - handles piece selection and placement
 
 ### mainMenu.cs
@@ -37,7 +37,7 @@ This project was developed with Unity and CSharp on VSCode.
 - [Board Sprite](https://en.m.wikipedia.org/wiki/File:Chessboard480.svg)
 - [Coding Adventure: Chess](https://www.youtube.com/watch?v=U4ogK0MIzqk&ab_channel=SebastianLague)
 - [How to use GitHub with Unity](https://www.youtube.com/watch?v=qpXxcvS-g3g&ab_channel=Brackeys)
-- [Create a grid in Unity - Perfect for tactics or turn-based games!](https://www.youtube.com/watch?v=kkAjpQAM-jE&ab_channel=Tarodev)
+- [Create a grid in Unity](https://www.youtube.com/watch?v=kkAjpQAM-jE&ab_channel=Tarodev)
 
 
 ## Future Work
