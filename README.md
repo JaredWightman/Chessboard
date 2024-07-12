@@ -4,26 +4,26 @@
 The purpose behind this project is to learn teamwork and development concepts surrounding game development with Unity, collaboration using version control (specifically Git/Github), and increasing our knowledge of C#. We've designed and built a chess game that presents a main menu to the user, and allows them to begin a new turn-based game. We prevent illegal moves, highlight available moves, and recognize when an opposing team's piece is captured. 
 
 ## Code Overview
-### GameManager.cs 
+### [GameManager.cs](Assets/Scripts/GameManager.cs) 
 - handles piece selection and placement
 
-### mainMenu.cs
+### [mainMenu.cs](Assets/mainMenu.cs)
 
-### Board.cs
+### [Board.cs](Assets/Scripts/Board.cs)
 
-### Coord.cs
+### [Coord.cs](Assets/Scripts/Coord.cs)
 
-### Piece.cs
+### [Piece.cs](Assets/Scripts/Piece.cs)
 
-### Square.cs
+### [Square.cs](Assets/Scripts/Square.cs)
 
-### BoardUI.cs
+### [BoardUI.cs](Assets/Scripts/UI/BoardUI.cs)
 - Controls various elements of the UI during gameplay, allowing for customization over whether the board flips to maintain correct perspective for the player whose current turn it is, 
 
-### BoardTheme.cs
+### [BoardTheme.cs](Assets/Scripts/UI/BoardTheme.cs)
 - Holds information about board UI elements such as square colors under different selection states, or the default color. 
 
-### PieceTheme.cs
+### [PieceTheme.cs](Assets/Scripts/UI/PieceTheme.cs)
 - Allows for easy customization and retrieval of piece sprites based on piece color, supporting both black and white themes.
 
 ## Development Environment
@@ -37,7 +37,7 @@ This project was developed with Unity and CSharp on VSCode.
 - [Board Sprite](https://en.m.wikipedia.org/wiki/File:Chessboard480.svg)
 - [Coding Adventure: Chess](https://www.youtube.com/watch?v=U4ogK0MIzqk&ab_channel=SebastianLague)
 - [How to use GitHub with Unity](https://www.youtube.com/watch?v=qpXxcvS-g3g&ab_channel=Brackeys)
-- [Create a grid in Unity - Perfect for tactics or turn-based games!](https://www.youtube.com/watch?v=kkAjpQAM-jE&ab_channel=Tarodev)
+- [Create a grid in Unity](https://www.youtube.com/watch?v=kkAjpQAM-jE&ab_channel=Tarodev)
 
 
 ## Future Work
