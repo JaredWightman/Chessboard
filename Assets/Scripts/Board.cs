@@ -141,6 +141,23 @@ public class Board
 
                 moveIndex++;
             }
+
+            // Pawn capture
+            newFile = pieceFile - 1;
+            newRank = pieceRank + 1;
+            if (newFile > -1 && squares[newFile, newRank].GetColor() == Piece.Black)
+            {
+                moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+                moveIndex++;
+            }
+            
+            newFile = pieceFile + 1;
+            newRank = pieceRank + 1;
+            if (newFile < width && squares[newFile, newRank].GetColor() == Piece.Black)
+            {
+                moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+                moveIndex++;
+            }
         }
 
         if (squares[pieceFile, pieceRank].GetColor() == Piece.Black)
@@ -161,40 +178,24 @@ public class Board
 
                 moveIndex++;
             }
-        }
-        
-        // Pawn Capture Code
-        newFile = pieceFile - 1;
-        newRank = pieceRank + 1;
-        if (newFile > -1 && squares[newFile, newRank].GetColor() == Piece.Black)
-        {
-            moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
-            moveIndex++;
-        }
-        
-        newFile = pieceFile + 1;
-        newRank = pieceRank + 1;
-        if (newFile < width && squares[newFile, newRank].GetColor() == Piece.Black)
-        {
-            moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
-            moveIndex++;
-        }
-        
-        newFile = pieceFile - 1;
-        newRank = pieceRank - 1;
-        if (newFile > -1 && squares[newFile, newRank].GetColor() == Piece.White)
-        {
-            moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
-            moveIndex++;
-        }
-        
-        newFile = pieceFile + 1;
-        newRank = pieceRank - 1;
-        if (newFile < width && squares[newFile, newRank].GetColor() == Piece.White)
-        {
-            moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
-        }
 
+            // Pawn Capture
+            newFile = pieceFile - 1;
+            newRank = pieceRank - 1;
+            if (newFile > -1 && squares[newFile, newRank].GetColor() == Piece.White)
+            {
+                moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+                moveIndex++;
+            }
+            
+            newFile = pieceFile + 1;
+            newRank = pieceRank - 1;
+            if (newFile < width && squares[newFile, newRank].GetColor() == Piece.White)
+            {
+                moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+                moveIndex++;
+            }
+        }
 
 		Coord[] shmooves = new Coord[moveIndex];
 		moveIndex = 0;

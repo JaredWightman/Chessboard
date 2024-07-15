@@ -24,10 +24,10 @@ public class Square
     private int pieceColor;
     public Square()
     {
-        /*pieceType = Piece.None;
-        pieceColor = Piece.White;
+        pieceType = Piece.None;
+        pieceColor = Piece.None;
         file = 0;
-        rank = 0;*/
+        rank = 0;
     }
 
     public Square(int newFile, int newRank, int type, int color)
