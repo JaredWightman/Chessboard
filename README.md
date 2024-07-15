@@ -3,6 +3,8 @@
 ## Project Purpose and Overview
 The purpose behind this project is to learn teamwork and development concepts surrounding game development with Unity, collaboration using version control (specifically Git/Github), and increasing our knowledge of C#. We've designed and built a chess game that presents a main menu to the user, and allows them to begin a new turn-based game. We prevent illegal moves, highlight available moves, and recognize when an opposing team's piece is captured. 
 
+To play this game, load the project in Unity version 2022.3.28f1
+
 ## Code Overview
 ### [GameManager.cs](Assets/Scripts/GameManager.cs) 
 - handles piece selection and placement
@@ -26,9 +28,19 @@ The purpose behind this project is to learn teamwork and development concepts su
 ### [PieceTheme.cs](Assets/Scripts/UI/PieceTheme.cs)
 - Allows for easy customization and retrieval of piece sprites based on piece color, supporting both black and white themes.
 
+[Software Demo Video](http://youtube.link.goes.here)
+
+
 ## Development Environment
 
 This project was developed with Unity and CSharp on VSCode.
+
+## Collaborators
+- Jared Wightman
+- Ethan Leishman
+- Spencer Ashcraft
+- Nathan Brower
+- Luke Wells
 
 ## Useful Websites and Works Cited
 
@@ -40,10 +52,6 @@ This project was developed with Unity and CSharp on VSCode.
 - [How to use GitHub with Unity](https://www.youtube.com/watch?v=qpXxcvS-g3g&ab_channel=Brackeys)
 - [Create a grid in Unity](https://www.youtube.com/watch?v=kkAjpQAM-jE&ab_channel=Tarodev)
 
-
 ## Future Work
-- We discussed modifying the board to allow to expansion beyond the normal bounds of a chessboard in order to allow for gameplay changes such as more than two teams, or 3D chess. This is not implemented currently. 
 - Pawn promotion to queen/knight/bishop/rook needs to be fully built.
-- Check and Checkmate conditions need to result in an end of game action.
-
-## Remaining Issues
+- Both check and checkmate conditions need to result in an end of game action. Currently only checkmate works.
