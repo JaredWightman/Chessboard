@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 public class BoardLarge
 {
@@ -18,7 +19,7 @@ public class BoardLarge
 		Square s = new Square();
 		
 		// Set the board with the starting pieces in their starting positions
-		squares = new Square[width, height] {
+		squares = new Square[width, height] /*{
 			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
 			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
 			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
@@ -33,7 +34,13 @@ public class BoardLarge
 			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
 			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
 			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()}
-		};
+		}*/;
+
+		for (int file = 0; file < width; file++) {
+			for (int rank = 0; rank < height; rank++) {
+				squares[file, rank] = new Square();
+			}
+		}
 
 		// Set up white pieces
 		squares[0, 0].SetPieceAndColor(Piece.Rook, Piece.White);
@@ -295,7 +302,7 @@ public class BoardLarge
 		newFile = pieceFile + 1;
 		while (canContinue == true)
 		{
-			if (newFile > height - 1 || newFile < 0 || newRank > width - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
+			if (newFile > width - 1 || newFile < 0 || newRank > height - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
 			{
 				canContinue = false;
 			}
@@ -310,7 +317,7 @@ public class BoardLarge
 		newFile = pieceFile - 1;
 		while (canContinue == true)
 		{
-			if (newFile > height - 1 || newFile < 0 || newRank > width - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
+			if (newFile > width - 1 || newFile < 0 || newRank > height - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
 			{
 				canContinue = false;
 			}
@@ -325,7 +332,7 @@ public class BoardLarge
 		newFile = pieceFile - 1;
 		while (canContinue == true)
 		{
-			if (newFile > height - 1 || newFile < 0 || newRank > width - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
+			if (newFile > width - 1 || newFile < 0 || newRank > height - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
 			{
 				canContinue = false;
 			}
@@ -340,7 +347,7 @@ public class BoardLarge
 		newFile = pieceFile + 1;
 		while (canContinue == true)
 		{
-			if (newFile > height - 1 || newFile < 0 || newRank > width - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
+			if (newFile > width - 1 || newFile < 0 || newRank > height - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
 			{
 				canContinue = false;
 			}
@@ -375,7 +382,7 @@ public class BoardLarge
 		newRank = pieceRank + 1;
 		newFile = pieceFile;
 
-		while (newRank <= width - 1 && GiveValidCoord(newFile, newRank, pieceColor) != null && (squares[newFile, newRank - 1].GetPiece() == Piece.None || newRank - 1 == pieceRank))
+		while (newRank <= height - 1 && GiveValidCoord(newFile, newRank, pieceColor) != null && (squares[newFile, newRank - 1].GetPiece() == Piece.None || newRank - 1 == pieceRank))
 		{
 			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
 			moveIndex++;
@@ -408,7 +415,7 @@ public class BoardLarge
 		newRank = pieceRank;
 		newFile = pieceFile + 1;
 
-		while (newFile <= height - 1 && GiveValidCoord(newFile, newRank, pieceColor) != null && (squares[newFile - 1, newRank].GetPiece() == Piece.None || newFile - 1 == pieceFile))
+		while (newFile <= width - 1 && GiveValidCoord(newFile, newRank, pieceColor) != null && (squares[newFile - 1, newRank].GetPiece() == Piece.None || newFile - 1 == pieceFile))
 		{
 			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
 			moveIndex++;
