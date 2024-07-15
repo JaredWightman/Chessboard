@@ -143,7 +143,6 @@ public class BoardLarge
 		if (squares[pieceFile, pieceRank].GetColor() == Piece.White)
 		{
 			newRank = pieceRank + 1;
-			newFile = pieceFile + 0;
 			if (squares[pieceFile, newRank].GetColor() == Piece.None)
 			{
 

@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: bb5b5d1400c4bdd4e8bfc5161d4249e1
+  - enabled: 1
+    path: Assets/Scenes/ChessExperiments.unity
+    guid: 5bd5bd58397b17141b7a706fe0af88ca
   m_configObjects: {}
