@@ -141,7 +141,6 @@ public class BoardLarge
 		if (squares[pieceFile, pieceRank].GetColor() == Piece.White)
 		{
 			newRank = pieceRank + 1;
-			newFile = pieceFile + 0;
 			if (squares[pieceFile, newRank].GetColor() == Piece.None)
 			{
 
@@ -164,11 +163,10 @@ public class BoardLarge
 		if (squares[pieceFile, pieceRank].GetColor() == Piece.Black)
 		{
 			newRank = pieceRank - 1;
-			newFile = pieceFile + 0;
 			if (squares[pieceFile, newRank].GetColor() == Piece.None)
 			{
 				moves[moveIndex] = GiveValidCoord(pieceFile, newRank, pieceColor);
-				if (pieceRank == length - 2)
+				if (pieceRank == 6)
 				{
 					if (squares[pieceFile, newRank -= 1].GetColor() == Piece.None)
 					{
