@@ -24,16 +24,13 @@ public class Board
     public void SetBoard()
     {
         // Set the board with the starting pieces in their starting positions
-        squares = new Square[width, height] {
-            {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-            {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-            {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-            {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-            {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-            {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-            {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-            {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()}
-        };
+        squares = new Square[width, height];
+
+        for (int file = 0; file < width; file++) {
+			for (int rank = 0; rank < height; rank++) {
+				squares[file, rank] = new Square();
+			}
+		}
 
         // Set up white pieces
         squares[0, 0].SetPieceAndColor(Piece.Rook, Piece.White);

@@ -19,22 +19,7 @@ public class BoardLarge
 		Square s = new Square();
 		
 		// Set the board with the starting pieces in their starting positions
-		squares = new Square[width, height] /*{
-			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
-			{new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()}
-		}*/;
+		squares = new Square[width, height];
 
 		for (int file = 0; file < width; file++) {
 			for (int rank = 0; rank < height; rank++) {
