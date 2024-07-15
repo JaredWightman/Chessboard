@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class Board
@@ -13,8 +14,12 @@ public class Board
     public Square[, ] squares;
     public const int width = 8;
     public const int height = 8;
+    public const int length = 8;
+    public bool isGameOver = false;
+    public bool blackWon = false;
+    public bool whiteWon = false;
 
-    public int colorToMove = Piece.White;
+	public int colorToMove = Piece.White;
 
     public Board()
     {
@@ -610,8 +615,22 @@ public class Board
         int endRank = endCoord.rankIndex;
         int pieceType = squares[startFile, startRank].GetPiece();
 
-        // Pawn promotion
-        if (squares[startFile, startRank].GetPiece() == Piece.Pawn) {
+        // King capture
+        if (squares[endFile, endRank].GetPiece() == Piece.King)
+        {
+            isGameOver = true;
+			if (squares[endFile, endRank].GetColor() == Piece.White)
+            {
+                blackWon = true;
+            } else if (squares[endFile, endRank].GetColor() == Piece.Black)
+            {
+				whiteWon = true;
+			}
+		}
+
+
+		// Pawn promotion
+		if (squares[startFile, startRank].GetPiece() == Piece.Pawn) {
             if (squares[startFile, startRank].GetColor() == Piece.White) {
                 if (endRank == height - 1) {
                     pieceType = Piece.Queen;
@@ -636,7 +655,11 @@ public class Board
 
         squares[endFile, endRank].SetPieceAndColor(pieceType, squares[startFile, startRank].GetColor());
         squares[startFile, startRank].SetEmpty();
-        if (colorToMove == Piece.White) {
+
+        if (isGameOver)
+        {
+            colorToMove = 100;
+        } else if (colorToMove == Piece.White) {
             colorToMove = Piece.Black;
         } else {
             colorToMove = Piece.White;
