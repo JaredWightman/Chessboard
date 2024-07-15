@@ -12,7 +12,7 @@ public class Board
 {
     public Square[, ] squares;
     public const int width = 8;
-    public const int length = 8;
+    public const int height = 8;
 
     public int colorToMove = Piece.White;
 
@@ -24,7 +24,7 @@ public class Board
     public void SetBoard()
     {
         // Set the board with the starting pieces in their starting positions
-        squares = new Square[length, width] {
+        squares = new Square[width, height] {
             {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
             {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
             {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
@@ -62,7 +62,7 @@ public class Board
         squares[7, 7].SetPieceAndColor(Piece.Rook, Piece.Black);
 
         // Init each square's rank and file values
-        for (int rank = 0; rank < length; rank++) {
+        for (int rank = 0; rank < height; rank++) {
             for (int file = 0; file < width; file++) {
                 squares[file, rank].SetFile(file);
                 squares[file, rank].SetRank(rank);
@@ -107,7 +107,7 @@ public class Board
         sqaure. Otherwise it will return a coordinate that won't display or work. This
         is to make it easier to get coordinates for the move generators.
         */
-        return (file < width && file > -1 && rank < length && rank > -1 && squares[file, rank].GetColor() != pieceColor) ? new Coord(file, rank) : new Coord(-1,-1);// (-1,-1) takes up space in arrays and isn't necessary (see rook). Instead return null.
+        return (file < width && file > -1 && rank < height && rank > -1 && squares[file, rank].GetColor() != pieceColor) ? new Coord(file, rank) : new Coord(-1,-1);// (-1,-1) takes up space in arrays and isn't necessary (see rook). Instead return null.
     }
 
     public Coord[] GeneratePawnMoves(Coord pieceCoord)
@@ -167,7 +167,7 @@ public class Board
             if (squares[pieceFile, newRank].GetColor() == Piece.None)
             {
                 moves[moveIndex] = GiveValidCoord(pieceFile, newRank, pieceColor);
-                if (pieceRank == length - 2)
+                if (pieceRank == height - 2)
                 {
                     if (squares[pieceFile, newRank -= 1].GetColor() == Piece.None)
                     {
@@ -276,7 +276,7 @@ public class Board
         newFile = pieceFile + 1;
         while (canContinue == true)
         {
-            if (newFile > width - 1 || newFile < 0 || newRank > length - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
+            if (newFile > width - 1 || newFile < 0 || newRank > height - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
             {
                 canContinue = false;
             }
@@ -291,7 +291,7 @@ public class Board
         newFile = pieceFile - 1;
         while (canContinue == true)
         {
-            if (newFile > width - 1 || newFile < 0 || newRank > length - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
+            if (newFile > width - 1 || newFile < 0 || newRank > height - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
             {
                 canContinue = false;
             }
@@ -306,7 +306,7 @@ public class Board
         newFile = pieceFile - 1;
         while (canContinue == true)
         {
-            if (newFile > width - 1 || newFile < 0 || newRank > length - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
+            if (newFile > width - 1 || newFile < 0 || newRank > height - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
             {
                 canContinue = false;
             }
@@ -321,7 +321,7 @@ public class Board
         newFile = pieceFile + 1;
         while (canContinue == true)
         {
-            if (newFile > width - 1 || newFile < 0 || newRank > length - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
+            if (newFile > width - 1 || newFile < 0 || newRank > height - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
             {
                 canContinue = false;
             }
@@ -356,7 +356,7 @@ public class Board
 		newRank = pieceRank + 1;
 		newFile = pieceFile;
 
-		while (newRank <= length - 1 && GiveValidCoord(newFile, newRank, pieceColor) != null && (squares[newFile, newRank - 1].GetPiece() == Piece.None || newRank - 1 == pieceRank))
+		while (newRank <= height - 1 && GiveValidCoord(newFile, newRank, pieceColor) != null && (squares[newFile, newRank - 1].GetPiece() == Piece.None || newRank - 1 == pieceRank))
 		{
 			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
 			moveIndex++;
@@ -616,7 +616,7 @@ public class Board
         // Pawn promotion
         if (squares[startFile, startRank].GetPiece() == Piece.Pawn) {
             if (squares[startFile, startRank].GetColor() == Piece.White) {
-                if (endRank == length - 1) {
+                if (endRank == height - 1) {
                     pieceType = Piece.Queen;
                 }
             } else if (squares[startFile, startRank].GetColor() == Piece.Black) {
