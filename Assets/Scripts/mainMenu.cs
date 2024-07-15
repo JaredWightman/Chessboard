@@ -10,6 +10,11 @@ public class mainMenu : MonoBehaviour
         SceneManager.LoadScene("FinalProject");
     }
 
+    public void PlayNormalGame()
+    {
+        SceneManager.LoadScene("Chessexperiments");
+    }
+
     public void BackButton ()
     {
         SceneManager.LoadScene("Menu");
