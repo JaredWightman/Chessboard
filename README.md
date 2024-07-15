@@ -7,17 +7,25 @@ To play this game, load the project in Unity version 2022.3.28f1
 
 ## Code Overview
 ### [GameManager.cs](Assets/Scripts/GameManager.cs) 
-- handles piece selection and placement
+- Handles piece selection and placement across the board 
+  using multiple methods that receive input from the 
+  mouse position.
 
 ### [mainMenu.cs](Assets/mainMenu.cs)
+- Loads the FinalProject (bonus game), Chessexperiments 
+  (normal game), and Menu in three separate class methods.
 
 ### [Board.cs](Assets/Scripts/Board.cs)
+- Creates the board, creates the pieces for game, places the pieces, and defines movements for each piece.
 
 ### [Coord.cs](Assets/Scripts/Coord.cs)
+- Creates coordination system for the program to use to better navigate the board.
 
 ### [Piece.cs](Assets/Scripts/Piece.cs)
+- Creates attributes for the pieces including type and colors.
 
 ### [Square.cs](Assets/Scripts/Square.cs)
+- Creates individual square with certain attributes and then defines Get and Set Methods for the square attributes.
 
 ### [BoardUI.cs](Assets/Scripts/UI/BoardUI.cs)
 - Controls various elements of the UI during gameplay, allowing for customization over whether the board flips to maintain correct perspective for the player whose current turn it is, 
