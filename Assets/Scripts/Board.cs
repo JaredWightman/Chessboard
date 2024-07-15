@@ -4,11 +4,15 @@ using UnityEngine;*/
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using UnityEngine;
 
 public class Board
 {
     public Square[, ] squares;
+    public const int width = 8;
+    public const int length = 8;
 
     public int colorToMove = Piece.White;
 
@@ -20,7 +24,7 @@ public class Board
     public void SetBoard()
     {
         // Set the board with the starting pieces in their starting positions
-        squares = new Square[8, 8] {
+        squares = new Square[length, width] {
             {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
             {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
             {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()},
@@ -31,6 +35,7 @@ public class Board
             {new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square(), new Square()}
         };
 
+        // Set up white pieces
         squares[0, 0].SetPieceAndColor(Piece.Rook, Piece.White);
         squares[1, 0].SetPieceAndColor(Piece.Knight, Piece.White);
         squares[2, 0].SetPieceAndColor(Piece.Bishop, Piece.White);
@@ -40,11 +45,13 @@ public class Board
         squares[6, 0].SetPieceAndColor(Piece.Knight, Piece.White);
         squares[7, 0].SetPieceAndColor(Piece.Rook, Piece.White);
 
+        // Set all pawns
         for (int i = 0; i < 8; i++) {
             squares[i, 1].SetPieceAndColor(Piece.Pawn, Piece.White);
             squares[i, 6].SetPieceAndColor(Piece.Pawn, Piece.Black);
         }
         
+        // Set up black pieces
         squares[0, 7].SetPieceAndColor(Piece.Rook, Piece.Black);
         squares[1, 7].SetPieceAndColor(Piece.Knight, Piece.Black);
         squares[2, 7].SetPieceAndColor(Piece.Bishop, Piece.Black);
@@ -54,8 +61,9 @@ public class Board
         squares[6, 7].SetPieceAndColor(Piece.Knight, Piece.Black);
         squares[7, 7].SetPieceAndColor(Piece.Rook, Piece.Black);
 
-        for (int rank = 0; rank < 8; rank++) {
-            for (int file = 0; file < 8; file++) {
+        // Init each square's rank and file values
+        for (int rank = 0; rank < length; rank++) {
+            for (int file = 0; file < width; file++) {
                 squares[file, rank].SetFile(file);
                 squares[file, rank].SetRank(rank);
             }
@@ -99,12 +107,12 @@ public class Board
         sqaure. Otherwise it will return a coordinate that won't display or work. This
         is to make it easier to get coordinates for the move generators.
         */
-        return (file < 8 && file > -1 && rank < 8 && rank > -1 && squares[file, rank].GetColor() != pieceColor) ? new Coord(file, rank) : new Coord(-1,-1);
+        return (file < width && file > -1 && rank < length && rank > -1 && squares[file, rank].GetColor() != pieceColor) ? new Coord(file, rank) : new Coord(-1,-1);// (-1,-1) takes up space in arrays and isn't necessary (see rook). Instead return null.
     }
 
     public Coord[] GeneratePawnMoves(Coord pieceCoord)
     {
-        Coord[] moves = new Coord[64];
+        Coord[] moves = new Coord[6];
         int pieceFile = pieceCoord.fileIndex;
         int pieceRank = pieceCoord.rankIndex;
         int pieceColor = squares[pieceFile, pieceRank].GetColor();
@@ -133,6 +141,23 @@ public class Board
 
                 moveIndex++;
             }
+
+            // Pawn capture
+            newFile = pieceFile - 1;
+            newRank = pieceRank + 1;
+            if (newFile > -1 && squares[newFile, newRank].GetColor() == Piece.Black)
+            {
+                moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+                moveIndex++;
+            }
+            
+            newFile = pieceFile + 1;
+            newRank = pieceRank + 1;
+            if (newFile < width && squares[newFile, newRank].GetColor() == Piece.Black)
+            {
+                moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+                moveIndex++;
+            }
         }
 
         if (squares[pieceFile, pieceRank].GetColor() == Piece.Black)
@@ -142,7 +167,7 @@ public class Board
             if (squares[pieceFile, newRank].GetColor() == Piece.None)
             {
                 moves[moveIndex] = GiveValidCoord(pieceFile, newRank, pieceColor);
-                if (pieceRank == 6)
+                if (pieceRank == length - 2)
                 {
                     if (squares[pieceFile, newRank -= 1].GetColor() == Piece.None)
                     {
@@ -153,10 +178,34 @@ public class Board
 
                 moveIndex++;
             }
+
+            // Pawn Capture
+            newFile = pieceFile - 1;
+            newRank = pieceRank - 1;
+            if (newFile > -1 && squares[newFile, newRank].GetColor() == Piece.White)
+            {
+                moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+                moveIndex++;
+            }
+            
+            newFile = pieceFile + 1;
+            newRank = pieceRank - 1;
+            if (newFile < width && squares[newFile, newRank].GetColor() == Piece.White)
+            {
+                moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+                moveIndex++;
+            }
         }
-        
-        return moves;
-    }
+
+		Coord[] shmooves = new Coord[moveIndex];
+		moveIndex = 0;
+		foreach (Coord i in shmooves)
+		{
+			shmooves[moveIndex] = moves[moveIndex];
+			moveIndex++;
+		}
+		return shmooves;
+	}
 
 
     public Coord[] GenerateKnightMoves(Coord pieceCoord)
@@ -207,18 +256,13 @@ public class Board
 
     public Coord[] GenerateBishopMoves(Coord pieceCoord)
     {
-        Coord[] moves = new Coord[64];
-        int pieceFile = pieceCoord.fileIndex;
-        int pieceRank = pieceCoord.rankIndex;
-        int pieceColor = squares[pieceFile, pieceRank].GetColor();
-
         return GetDiagonalMoves(pieceCoord);
     }
 
     public Coord[] GetDiagonalMoves(Coord pieceCoord)
     {
         // Initialize all the attributes
-        Coord[] moves = new Coord[64];
+        Coord[] moves = new Coord[18]; // Set to 14 once (-1, -1) isn't necessary (to limit loops and space)
         int pieceFile = pieceCoord.fileIndex;
         int pieceRank = pieceCoord.rankIndex;
         int pieceColor = squares[pieceFile, pieceRank].GetColor();
@@ -232,7 +276,7 @@ public class Board
         newFile = pieceFile + 1;
         while (canContinue == true)
         {
-            if (newFile > 7 || newFile < 0 || newRank > 7 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
+            if (newFile > width - 1 || newFile < 0 || newRank > length - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
             {
                 canContinue = false;
             }
@@ -247,7 +291,7 @@ public class Board
         newFile = pieceFile - 1;
         while (canContinue == true)
         {
-            if (newFile > 7 || newFile < 0 || newRank > 7 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
+            if (newFile > width - 1 || newFile < 0 || newRank > length - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
             {
                 canContinue = false;
             }
@@ -262,7 +306,7 @@ public class Board
         newFile = pieceFile - 1;
         while (canContinue == true)
         {
-            if (newFile > 7 || newFile < 0 || newRank > 7 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
+            if (newFile > width - 1 || newFile < 0 || newRank > length - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
             {
                 canContinue = false;
             }
@@ -277,7 +321,7 @@ public class Board
         newFile = pieceFile + 1;
         while (canContinue == true)
         {
-            if (newFile > 7 || newFile < 0 || newRank > 7 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
+            if (newFile > width - 1 || newFile < 0 || newRank > length - 1 || newRank < 0 || squares[newFile, newRank].GetPiece() != Piece.None)
             {
                 canContinue = false;
             }
@@ -286,107 +330,224 @@ public class Board
             newFile++;
             moveIndex++;
         }
-        
-        return moves;
-    }
 
-    public Coord[] GenerateRookMoves(Coord pieceCoord)
+		Coord[] shmooves = new Coord[moveIndex];
+		moveIndex = 0;
+		foreach (Coord i in shmooves)
+		{
+			shmooves[moveIndex] = moves[moveIndex];
+			moveIndex++;
+		}
+		return shmooves;
+	}
+
+	public Coord[] GetLinearMoves(Coord pieceCoord)
+	{
+		// Initialize all the attributes
+		Coord[] moves = new Coord[14];
+		int pieceFile = pieceCoord.fileIndex;
+		int pieceRank = pieceCoord.rankIndex;
+		int pieceColor = squares[pieceFile, pieceRank].GetColor();
+		int newFile;
+		int newRank;
+		int moveIndex = 0;
+
+		// Up
+		newRank = pieceRank + 1;
+		newFile = pieceFile;
+
+		while (newRank <= length - 1 && GiveValidCoord(newFile, newRank, pieceColor) != null && (squares[newFile, newRank - 1].GetPiece() == Piece.None || newRank - 1 == pieceRank))
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+			newRank++;
+		}
+
+		// Down
+		newRank = pieceRank - 1;
+		newFile = pieceFile;
+
+		while (newRank >= 0 && GiveValidCoord(newFile, newRank, pieceColor) != null && (squares[newFile, newRank + 1].GetPiece() == Piece.None || newRank + 1 == pieceRank))
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+			newRank--;
+		}
+
+		// Left
+		newRank = pieceRank;
+		newFile = pieceFile - 1;
+
+		while (newFile >= 0 && GiveValidCoord(newFile, newRank, pieceColor) != null && (squares[newFile + 1, newRank].GetPiece() == Piece.None || newFile + 1 == pieceFile))
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+			newFile--;
+		}
+
+		// Right
+		newRank = pieceRank;
+		newFile = pieceFile + 1;
+
+		while (newFile <= width - 1 && GiveValidCoord(newFile, newRank, pieceColor) != null && (squares[newFile - 1, newRank].GetPiece() == Piece.None || newFile - 1 == pieceFile))
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+			newFile++;
+		}
+
+		Coord[] shmooves = new Coord[moveIndex];
+		moveIndex = 0;
+		foreach (Coord i in shmooves)
+		{
+			shmooves[moveIndex] = moves[moveIndex];
+			moveIndex++;
+		}
+		return shmooves;
+	}
+
+
+	public Coord[] GenerateRookMoves(Coord pieceCoord)
     {
-        Coord[] moves = new Coord[64];
-        int pieceFile = pieceCoord.fileIndex;
-        int pieceRank = pieceCoord.rankIndex;
-        int pieceColor = squares[pieceFile, pieceRank].GetColor();
-
-        // This makes all squares legal moves to be a functioning stub.
-        int moveIndex = 0;
-        for (int rank = 0; rank < 8; rank++) {
-            for (int file = 0; file < 8; file++) {
-                if (GiveValidCoord(file, rank, pieceColor).fileIndex != -1) {
-                    moves[moveIndex] = new Coord(file, rank);
-                } else {
-                    moves[moveIndex] = new Coord(-1,-1);
-                }
-                moveIndex++;
-            }
-        }
-
-        return moves;
+		return GetLinearMoves(pieceCoord);
     }
 
     public Coord[] GenerateQueenMoves(Coord pieceCoord)
     {
-        Coord[] moves = new Coord[64];
-        int pieceFile = pieceCoord.fileIndex;
-        int pieceRank = pieceCoord.rankIndex;
-        int pieceColor = squares[pieceFile, pieceRank].GetColor();
-
-        // This makes all squares legal moves to be a functioning stub.
         int moveIndex = 0;
-        for (int rank = 0; rank < 8; rank++) {
-            for (int file = 0; file < 8; file++) {
-                if (GiveValidCoord(file, rank, pieceColor).fileIndex != -1) {
-                    moves[moveIndex] = new Coord(file, rank);
-                } else {
-                    moves[moveIndex] = new Coord(-1,-1);
-                }
-                moveIndex++;
-            }
-        }
+        Coord[] moves = GetLinearMoves(pieceCoord);
+        Coord[] morves = GetDiagonalMoves(pieceCoord);
 
-        return moves;
-    }
+		Coord[] shmooves = new Coord[moves.Length + morves.Length];
+		foreach (Coord i in moves)
+		{
+			shmooves[moveIndex] = i;
+			moveIndex++;
+		}
+		foreach (Coord i in morves)
+		{
+			shmooves[moveIndex] = i;
+			moveIndex++;
+		}
+		return shmooves;
+	}
 
     public Coord[] GenerateKingMoves(Coord pieceCoord)
     {
-        Coord[] moves = new Coord[64];
+        Coord[] moves = new Coord[10];
         int pieceFile = pieceCoord.fileIndex;
         int pieceRank = pieceCoord.rankIndex;
         int pieceColor = squares[pieceFile, pieceRank].GetColor();
         int newRank;
         int newFile;
-        
-        // Forward
-        newRank = pieceRank + 1;
-        newFile = pieceFile;
-        moves[0] = GiveValidCoord(newFile, newRank, pieceColor);
-        
-        // Backward
-        newRank = pieceRank - 1;
-        newFile = pieceFile;
-        moves[1] = GiveValidCoord(newFile, newRank, pieceColor);
-        
-        // Right
-        newFile = pieceFile + 1;
-        newRank = pieceRank;
-        moves[2] = GiveValidCoord(newFile, newRank, pieceColor);
-        
-        // Left
-        newFile = pieceFile - 1;
-        newRank = pieceRank;
-        moves[3] = GiveValidCoord(newFile, newRank, pieceColor);
-        
-        // Upper Right
-        newFile = pieceFile + 1;
-        newRank = pieceRank + 1;
-        moves[4] = GiveValidCoord(newFile, newRank, pieceColor);
-        
-        // Upper Left
-        newFile = pieceFile - 1;
-        newRank = pieceRank + 1;
-        moves[5] = GiveValidCoord(newFile, newRank, pieceColor);
-        
-        // Lower Right
-        newFile = pieceFile + 1;
-        newRank = pieceRank - 1;
-        moves[6] = GiveValidCoord(newFile, newRank, pieceColor);
-        
-        // Lower Left
-        newFile = pieceFile - 1;
-        newRank = pieceRank - 1;
-        moves[7] = GiveValidCoord(newFile, newRank, pieceColor);
+        int moveIndex = 0;
 
-        return moves;
-    }
+		// Forward
+		newRank = pieceRank + 1;
+        newFile = pieceFile;
+		if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+		}
+
+		// Backward
+		newRank = pieceRank - 1;
+        newFile = pieceFile;
+		if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+		}
+
+		// Right
+		newFile = pieceFile + 1;
+        newRank = pieceRank;
+		if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+		}
+
+		// Left
+		newFile = pieceFile - 1;
+        newRank = pieceRank;
+		if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+		}
+
+		// Upper Right
+		newFile = pieceFile + 1;
+        newRank = pieceRank + 1;
+		if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+		}
+
+		// Upper Left
+		newFile = pieceFile - 1;
+        newRank = pieceRank + 1;
+		if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+		}
+
+		// Lower Right
+		newFile = pieceFile + 1;
+        newRank = pieceRank - 1;
+		if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+		}
+
+		// Lower Left
+		newFile = pieceFile - 1;
+        newRank = pieceRank - 1;
+		if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+		{
+			moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+			moveIndex++;
+		}
+
+		// Castle Code (may require move index)
+		if (pieceFile == 4) {
+            // Castle king side
+            newFile = pieceFile + 2;
+            newRank = pieceRank;
+            if (squares[newFile, newRank].GetPiece() == Piece.None && squares[pieceFile + 1, pieceRank].GetPiece() == Piece.None && squares[pieceFile + 3, pieceRank].GetPiece() == Piece.Rook && squares[pieceFile + 3, pieceRank].GetColor() == pieceColor) {
+				if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+				{
+					moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+					moveIndex++;
+				}
+			}
+
+            // Castle queen side
+            newFile = pieceFile - 2;
+            newRank = pieceRank;
+            if (squares[newFile, newRank].GetPiece() == Piece.None && squares[pieceFile - 1, pieceRank].GetPiece() == Piece.None && squares[pieceFile - 3, pieceRank].GetPiece() == Piece.None && squares[pieceFile - 4, pieceRank].GetPiece() == Piece.Rook && squares[pieceFile - 4, pieceRank].GetColor() == pieceColor) {
+				if (GiveValidCoord(newFile, newRank, pieceColor) != null)
+				{
+					moves[moveIndex] = GiveValidCoord(newFile, newRank, pieceColor);
+					moveIndex++;
+				}
+			}
+        }
+
+		Coord[] shmooves = new Coord[moveIndex];
+		moveIndex = 0;
+		foreach (Coord i in shmooves)
+		{
+			shmooves[moveIndex] = moves[moveIndex];
+			moveIndex++;
+		}
+		return shmooves;
+	}
 
     public bool IsMoveLegal(Coord startCoord, Coord endCoord)
     {
@@ -450,8 +611,33 @@ public class Board
         int startRank = startCoord.rankIndex;
         int endFile = endCoord.fileIndex;
         int endRank = endCoord.rankIndex;
+        int pieceType = squares[startFile, startRank].GetPiece();
 
-        squares[endFile, endRank].SetPieceAndColor(squares[startFile, startRank].GetPiece(), squares[startFile, startRank].GetColor());
+        // Pawn promotion
+        if (squares[startFile, startRank].GetPiece() == Piece.Pawn) {
+            if (squares[startFile, startRank].GetColor() == Piece.White) {
+                if (endRank == length - 1) {
+                    pieceType = Piece.Queen;
+                }
+            } else if (squares[startFile, startRank].GetColor() == Piece.Black) {
+                if (endRank == 0) {
+                    pieceType = Piece.Queen;
+                }
+            }
+        }
+
+        // Castle king
+        if (squares[startFile, startRank].GetPiece() == Piece.King) {
+            if (endFile == startFile + 2 && endRank == startRank) {
+                squares[endFile - 1, endRank].SetPieceAndColor(Piece.Rook, squares[startFile, startRank].GetColor());
+                squares[endFile + 1, endRank].SetEmpty();
+            } else if (endFile == startFile - 2 && endRank == startRank) {
+                squares[endFile + 1, endRank].SetPieceAndColor(Piece.Rook, squares[startFile, startRank].GetColor());
+                squares[endFile - 2, endRank].SetEmpty();
+            }
+        }
+
+        squares[endFile, endRank].SetPieceAndColor(pieceType, squares[startFile, startRank].GetColor());
         squares[startFile, startRank].SetEmpty();
         if (colorToMove == Piece.White) {
             colorToMove = Piece.Black;
