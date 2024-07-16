@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class BoardUILarge : MonoBehaviour
@@ -17,8 +18,10 @@ public class BoardUILarge : MonoBehaviour
     public bool whiteIsBottom = true;
     MeshRenderer[, ] squareRenderers;
     SpriteRenderer[, ] squarePieceRenderers;
+	public Text blackWins;
+	public Text whiteWins;
 
-    const float pieceDepth = -0.1f;
+	const float pieceDepth = -0.1f;
     const float pieceDragDepth = -0.2f;
     private Coord lastStartSquare;
     private Coord lastTargetSquare;
@@ -27,8 +30,10 @@ public class BoardUILarge : MonoBehaviour
     void Awake()
     {
         CreateBoardUI();
-        //UpdatePosition(board);
-    }
+		whiteWins.enabled = false;
+		blackWins.enabled = false;
+		//UpdatePosition(board);
+	}
 
     public void DragPiece (Coord pieceCoord, Vector2 mousePos) {
         if (whiteIsBottom) {
@@ -81,7 +86,15 @@ public class BoardUILarge : MonoBehaviour
         }
         UpdatePosition(board);
         ResetSquareColors();
-    }
+		if (board.blackWon)
+		{
+			blackWins.enabled = true;
+		}
+		else if (board.whiteWon)
+		{
+			whiteWins.enabled = true;
+		}
+	}
 
     public bool TryGetSquareUnderMouse (Vector2 mouseWorld, out Coord selectedCoord) {
 		//int file = (int) (mouseWorld.x + 4);

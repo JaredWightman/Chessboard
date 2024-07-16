@@ -4,6 +4,7 @@ using System.IO;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class BoardUI : MonoBehaviour
@@ -18,8 +19,8 @@ public class BoardUI : MonoBehaviour
     public bool whiteIsBottom = true;
     MeshRenderer[, ] squareRenderers;
     SpriteRenderer[, ] squarePieceRenderers;
-	public TextMeshPro blackWins;
-	public TextMeshPro whiteWins;
+	public Text blackWins;
+	public Text whiteWins;
 
 	const float pieceDepth = -0.1f;
     const float pieceDragDepth = -0.2f;
@@ -30,8 +31,10 @@ public class BoardUI : MonoBehaviour
     void Awake()
     {
         CreateBoardUI();
-        //UpdatePosition(board);
-    }
+        whiteWins.enabled = false;
+        blackWins.enabled = false;
+		//UpdatePosition(board);
+	}
 
     public void DragPiece (Coord pieceCoord, Vector2 mousePos) {
         if (whiteIsBottom) {
