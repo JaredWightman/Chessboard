@@ -9,8 +9,6 @@ public class BoardLarge
 	public bool isGameOver = false;
 	public bool blackWon = false;
 	public bool whiteWon = false;
-    public bool blackWon = false;
-    public bool whiteWon = false;
 
 	public int colorToMove = Piece.White;
 
@@ -631,15 +629,6 @@ public class BoardLarge
 		int pieceType = squares[startFile, startRank].GetPiece();
 
 		// King capture
-		if (squares[endFile, endRank].GetPiece() == Piece.King)
-		{
-			isGameOver = true;
-			if (squares[endFile, endRank].GetColor() == Piece.White)
-			{
-				blackWon = true;
-			}
-			else if (squares[endFile, endRank].GetColor() == Piece.Black)
-			{
         if (squares[endFile, endRank].GetPiece() == Piece.King)
         {
             isGameOver = true;
@@ -674,16 +663,16 @@ public class BoardLarge
 		// Castle king
 		if (squares[startFile, startRank].GetPiece() == Piece.King)
 		{
-			if (endFile == startFile + 3 && endRank == startRank)
-			{
-				squares[endFile - 1, endRank].SetPieceAndColor(Piece.Rook, squares[startFile, startRank].GetColor());
-				squares[endFile + 2, endRank].SetEmpty();
-			}
-			else if (endFile == startFile - 3 && endRank == startRank)
-			{
-				squares[endFile + 1, endRank].SetPieceAndColor(Piece.Rook, squares[startFile, startRank].GetColor());
-				squares[endFile - 2, endRank].SetEmpty();
-			}
+				if (endFile == startFile + 3 && endRank == startRank)
+				{
+					squares[endFile - 1, endRank].SetPieceAndColor(Piece.Rook, squares[startFile, startRank].GetColor());
+					squares[endFile + 2, endRank].SetEmpty();
+				}
+				else if (endFile == startFile - 3 && endRank == startRank)
+				{
+					squares[endFile + 1, endRank].SetPieceAndColor(Piece.Rook, squares[startFile, startRank].GetColor());
+					squares[endFile - 2, endRank].SetEmpty();
+				}
 		}
 
 		squares[endFile, endRank].SetPieceAndColor(pieceType, squares[startFile, startRank].GetColor());
@@ -701,12 +690,6 @@ public class BoardLarge
 		{
 			colorToMove = Piece.White;
 		}
-        {
-            colorToMove = 100;
-        } else if (colorToMove == Piece.White) {
-            colorToMove = Piece.Black;
-        } else {
-            colorToMove = Piece.White;
-        }
+        
 	}
 }
