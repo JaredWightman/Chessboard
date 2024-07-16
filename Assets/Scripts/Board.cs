@@ -14,7 +14,6 @@ public class Board
     public Square[, ] squares;
     public const int width = 8;
     public const int height = 8;
-    public const int length = 8;
     public bool isGameOver = false;
     public bool blackWon = false;
     public bool whiteWon = false;

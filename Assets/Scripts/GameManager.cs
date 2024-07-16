@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -17,6 +19,8 @@ public class GameManager : MonoBehaviour
     public Camera cam;
     Coord selectedPieceSquare;
     Board board = new Board();
+    public TMP_Text blackWins;
+    public TMP_Text whiteWins;
     /*public GameManager (Board board) {
         boardUI = GameObject.FindObjectOfType<BoardUI> ();
         cam = Camera.main;
@@ -110,6 +114,14 @@ public class GameManager : MonoBehaviour
             //boardUI.UpdatePosition(board);
             //boardUI.DeselectSquare(selectedPieceSquare);
             boardUI.OnMoveMade(board, startSquare, targetSquare);
+            if (board.blackWon)
+            {
+                blackWins.enabled = true;
+            }
+            else if (board.whiteWon)
+            {
+                whiteWins.enabled = true;
+            }
         } else {
             CancelPieceSelection ();
         }
