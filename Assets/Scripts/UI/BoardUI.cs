@@ -87,14 +87,6 @@ public class BoardUI : MonoBehaviour
         }
         UpdatePosition(board);
         ResetSquareColors();
-		if (board.blackWon)
-		{
-			blackWins.enabled = true;
-		}
-		else if (board.whiteWon)
-		{
-			whiteWins.enabled = true;
-		}
 	}
 
     public bool TryGetSquareUnderMouse (Vector2 mouseWorld, out Coord selectedCoord) {

@@ -9,6 +9,8 @@ public class BoardLarge
 	public bool isGameOver = false;
 	public bool blackWon = false;
 	public bool whiteWon = false;
+    public bool blackWon = false;
+    public bool whiteWon = false;
 
 	public int colorToMove = Piece.White;
 
@@ -638,6 +640,14 @@ public class BoardLarge
 			}
 			else if (squares[endFile, endRank].GetColor() == Piece.Black)
 			{
+        if (squares[endFile, endRank].GetPiece() == Piece.King)
+        {
+            isGameOver = true;
+			if (squares[endFile, endRank].GetColor() == Piece.White)
+            {
+                blackWon = true;
+            } else if (squares[endFile, endRank].GetColor() == Piece.Black)
+            {
 				whiteWon = true;
 			}
 		}
@@ -691,5 +701,12 @@ public class BoardLarge
 		{
 			colorToMove = Piece.White;
 		}
+        {
+            colorToMove = 100;
+        } else if (colorToMove == Piece.White) {
+            colorToMove = Piece.Black;
+        } else {
+            colorToMove = Piece.White;
+        }
 	}
 }
