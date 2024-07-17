@@ -19,8 +19,8 @@ public class BoardUI : MonoBehaviour
     public bool whiteIsBottom = true;
     MeshRenderer[, ] squareRenderers;
     SpriteRenderer[, ] squarePieceRenderers;
-	public Text blackWins;
-	public Text whiteWins;
+	//public Text blackWins;
+	//public Text whiteWins;
 
 	const float pieceDepth = -0.1f;
     const float pieceDragDepth = -0.2f;
@@ -31,8 +31,8 @@ public class BoardUI : MonoBehaviour
     void Awake()
     {
         CreateBoardUI();
-        whiteWins.enabled = false;
-        blackWins.enabled = false;
+        //whiteWins.enabled = false;
+        //blackWins.enabled = false;
 		//UpdatePosition(board);
 	}
 

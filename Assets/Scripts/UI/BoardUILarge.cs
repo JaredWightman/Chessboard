@@ -18,8 +18,8 @@ public class BoardUILarge : MonoBehaviour
     public bool whiteIsBottom = true;
     MeshRenderer[, ] squareRenderers;
     SpriteRenderer[, ] squarePieceRenderers;
-	public Text blackWins;
-	public Text whiteWins;
+	// public Text blackWins;
+	// public Text whiteWins;
 
 	const float pieceDepth = -0.1f;
     const float pieceDragDepth = -0.2f;
@@ -30,8 +30,8 @@ public class BoardUILarge : MonoBehaviour
     void Awake()
     {
         CreateBoardUI();
-		whiteWins.enabled = false;
-		blackWins.enabled = false;
+		// whiteWins.enabled = false;
+		// blackWins.enabled = false;
 		//UpdatePosition(board);
 	}
 
@@ -86,14 +86,14 @@ public class BoardUILarge : MonoBehaviour
         }
         UpdatePosition(board);
         ResetSquareColors();
-		if (board.blackWon)
-		{
-			blackWins.enabled = true;
-		}
-		else if (board.whiteWon)
-		{
-			whiteWins.enabled = true;
-		}
+		// if (board.blackWon)
+		// {
+		// 	blackWins.enabled = true;
+		// }
+		// else if (board.whiteWon)
+		// {
+		// 	whiteWins.enabled = true;
+		// }
 	}
 
     public bool TryGetSquareUnderMouse (Vector2 mouseWorld, out Coord selectedCoord) {
