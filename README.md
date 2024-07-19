@@ -36,7 +36,7 @@ To play this game, load the project in Unity version 2022.3.28f1
 ### [PieceTheme.cs](Assets/Scripts/UI/PieceTheme.cs)
 - Allows for easy customization and retrieval of piece sprites based on piece color, supporting both black and white themes.
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/uO27DkLV4X4)
 
 
 ## Development Environment
